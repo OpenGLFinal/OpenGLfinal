@@ -1,5 +1,11 @@
 ﻿  main.cpp
-c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(16): warning C4244: '인수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(31): warning C4060: switch문에 'case' 또는 'default' 레이블이 없습니다.
-c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(49): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(43): warning C4244: '인수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(298): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(329): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(330): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(352): warning C4244: '인수': 'int'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(357): warning C4244: '인수': 'int'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(363): warning C4244: '인수': 'int'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(369): warning C4244: '인수': 'int'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(375): warning C4244: '인수': 'int'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   Rolling_cube.vcxproj -> C:\Users\rnrjs\Desktop\개발\OpenGLfinal\Rolling_cube\Debug\Rolling_cube.exe
