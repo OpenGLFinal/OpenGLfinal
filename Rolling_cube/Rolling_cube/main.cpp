@@ -1,32 +1,9 @@
-#include <GL/freeglut.h>
-#include <gl/glut.h> 
-#include <time.h>
-#include <iostream>
-#include <math.h>
-using namespace std;
+#include "basic.h"
+#include "main_cube.h"
 GLvoid drawScene(GLvoid);
 GLvoid Reshape(int w, int h);
 GLUquadricObj *glu_fill;
 GLUquadricObj *glu_line;
-
-class Main_cube
-{
-public:
-	int x = 0;
-	int z = 0;
-
-	int move_w = 0;
-	int move_w_time = 0;
-	int move_s = 0;
-	int move_s_time = 0;
-	int move_a = 0;
-	int move_a_time = 0;
-	int move_d = 0;
-	int move_d_time = 0;
-	
-	int x_ro = 0;
-	int z_ro = 0;
-};
 
 int camera_x = 0;
 int camera_z = 0;
@@ -35,7 +12,7 @@ int camera_ro_left = 0;
 int camera_ro_right = 0;
 int camera_ro_big = 0;
 
-Main_cube main_cube;
+Main_cube main_cube;//주인공 큐브
 
 void SetupRC()
 {
@@ -49,70 +26,6 @@ void Timer(int value)
 		camera_ro += 360;
 	else if (camera_ro > 270)
 		camera_ro -= 360;
-
-	if (main_cube.move_w == 1)
-	{
-		if (main_cube.move_w_time != 0)
-		{
-			main_cube.x_ro -= 5;
-			main_cube.move_w_time -= 5;
-			camera_z -= 5;
-		}
-		else
-		{
-			main_cube.move_w = 0;
-			main_cube.z -= 90;
-			main_cube.x_ro = 0;
-		}
-	}
-
-	if (main_cube.move_s == 1)
-	{
-		if (main_cube.move_s_time != 0)
-		{
-			main_cube.x_ro += 5;
-			main_cube.move_s_time -= 5;
-			camera_z += 5;
-		}
-		else
-		{
-			main_cube.move_s = 0;
-			main_cube.z += 90;
-			main_cube.x_ro = 0;
-		}
-	}
-
-	if (main_cube.move_a == 1)
-	{
-		if (main_cube.move_a_time != 0)
-		{
-			main_cube.z_ro += 5;
-			main_cube.move_a_time -= 5;
-			camera_x -= 5;
-		}
-		else
-		{
-			main_cube.move_a = 0;
-			main_cube.x -= 90;
-			main_cube.z_ro = 0;
-		}
-	}
-
-	if (main_cube.move_d == 1)
-	{
-		if (main_cube.move_d_time != 0)
-		{
-			main_cube.z_ro -= 5;
-			main_cube.move_d_time -= 5;
-			camera_x += 5;
-		}
-		else
-		{
-			main_cube.move_d = 0;
-			main_cube.x += 90;
-			main_cube.z_ro = 0;
-		}
-	}
 
 
 	if (camera_ro_left == 1)
@@ -347,42 +260,7 @@ void drawScene()
 		}
 		glPopMatrix();
 			
-		glPushMatrix();//주인공 사각형
-		{
-			glTranslatef(main_cube.x, 45, main_cube.z);
-
-			if (main_cube.move_w == 1)
-			{
-				glTranslatef(0, -45, -45);
-				glRotatef(main_cube.x_ro, 1, 0, 0);
-				glTranslatef(0, 45, 45);
-			}
-			if (main_cube.move_s == 1)
-			{
-				glTranslatef(0, -45, 45);
-				glRotatef(main_cube.x_ro, 1, 0, 0);
-				glTranslatef(0, 45, -45);
-			}
-			if (main_cube.move_a == 1)
-			{
-				glTranslatef(-45, -45, 0);
-				glRotatef(main_cube.z_ro, 0, 0, 1);
-				glTranslatef(45, 45, 0);
-			}
-			if (main_cube.move_d == 1)
-			{
-				glTranslatef(45, -45, 0);
-				glRotatef(main_cube.z_ro, 0, 0, 1);
-				glTranslatef(-45, 45, 0);
-			}
-
-			
-			glColor3ub(120, 55, 18);
-			glutSolidCube(90);
-			glColor3ub(0, 0, 0);
-			glutWireCube(90);
-		}
-		glPopMatrix();
+		main_cube.draw();
 	}
 	glPopMatrix();
 	glutSwapBuffers();

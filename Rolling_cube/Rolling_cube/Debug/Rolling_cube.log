@@ -1,11 +1,55 @@
 ﻿  main.cpp
-c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(43): warning C4244: '인수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(298): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
-c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(329): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(330): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(352): warning C4244: '인수': 'int'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(357): warning C4244: '인수': 'int'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(363): warning C4244: '인수': 'int'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(369): warning C4244: '인수': 'int'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(375): warning C4244: '인수': 'int'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  Rolling_cube.vcxproj -> C:\Users\rnrjs\Desktop\개발\OpenGLfinal\Rolling_cube\Debug\Rolling_cube.exe
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\basic.h(8): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\basic.h(8): error C2146: 구문 오류: ';'이(가) 'main_cube' 식별자 앞에 없습니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(20): warning C4244: '인수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(67): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(72): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(73): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(77): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(78): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(82): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(83): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(87): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(88): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(95): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(100): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(101): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(105): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(106): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(110): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(111): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(115): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(116): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(123): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(128): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(129): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(133): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(134): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(138): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(139): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(143): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(144): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(151): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(156): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(157): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(161): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(162): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(166): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(167): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(171): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(172): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(179): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(187): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(211): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(242): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(243): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(263): error C2065: 'main_cube': 선언되지 않은 식별자입니다.
+  main_cube.cpp
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\basic.h(8): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\basic.h(8): error C2146: 구문 오류: ';'이(가) 'main_cube' 식별자 앞에 없습니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main_cube.cpp(8): warning C4244: '인수': 'int'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main_cube.cpp(13): warning C4244: '인수': 'int'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main_cube.cpp(19): warning C4244: '인수': 'int'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main_cube.cpp(25): warning C4244: '인수': 'int'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main_cube.cpp(31): warning C4244: '인수': 'int'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  코드를 생성하고 있습니다...
