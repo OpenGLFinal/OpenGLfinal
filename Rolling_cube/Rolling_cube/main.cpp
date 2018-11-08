@@ -280,7 +280,7 @@ void drawScene()
 
 		glPushMatrix();//¹Ù´Ú ÆÇ
 		{
-			glColor3ub(255, 255, 255);
+			glColor3ub(150, 150, 150);
 			glBegin(GL_POLYGON);
 			glVertex3f(-900, 0, -900);
 			glVertex3f(-900, 0, 900);
@@ -291,6 +291,17 @@ void drawScene()
 		glPopMatrix();
 			
 		main_cube.draw();
+
+		glPushMatrix();//ÁöÇü
+		{
+			glTranslatef(0, 90, 0);
+			glColor3ub(30, 30, 30);
+			glutSolidCube(180);
+			glColor3ub(0, 0, 0);
+			glutWireCube(180);
+		}
+		glPopMatrix();
+		
 	}
 	glPopMatrix();
 	glutSwapBuffers();
