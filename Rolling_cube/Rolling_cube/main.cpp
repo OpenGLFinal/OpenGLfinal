@@ -1,18 +1,14 @@
 #include "basic.h"
 #include "main_cube.h"
+#include "camera.h"
+
 GLvoid drawScene(GLvoid);
 GLvoid Reshape(int w, int h);
 GLUquadricObj *glu_fill;
 GLUquadricObj *glu_line;
 
-int camera_x = 0;
-int camera_z = 0;
-int camera_ro = 90;
-int camera_ro_left = 0;
-int camera_ro_right = 0;
-int camera_ro_big = 0;
-
 Main_cube main_cube;//주인공 큐브
+Camera camera;//카메라
 
 void SetupRC()
 {
@@ -22,35 +18,69 @@ void SetupRC()
 
 void Timer(int value)
 {
-	if (camera_ro < 0)
-		camera_ro += 360;
-	else if (camera_ro > 270)
-		camera_ro -= 360;
+	camera.timer();
 
-
-	if (camera_ro_left == 1)
+	if (main_cube.move_w == 1)
 	{
-		if (camera_ro_big != 0)
+		if (main_cube.move_w_time != 0)
 		{
-			camera_ro -= 5;
-			camera_ro_big -= 5;
+			main_cube.x_ro -= 5;
+			main_cube.move_w_time -= 5;
+			camera.z -= 5;
 		}
 		else
 		{
-			camera_ro_left = 0;
+			main_cube.move_w = 0;
+			main_cube.z -= 90;
+			main_cube.x_ro = 0;
 		}
 	}
 
-	if (camera_ro_right == 1)
+	if (main_cube.move_s == 1)
 	{
-		if (camera_ro_big != 0)
+		if (main_cube.move_s_time != 0)
 		{
-			camera_ro += 5;
-			camera_ro_big -= 5;
+			main_cube.x_ro += 5;
+			main_cube.move_s_time -= 5;
+			camera.z += 5;
 		}
 		else
 		{
-			camera_ro_right = 0;
+			main_cube.move_s = 0;
+			main_cube.z += 90;
+			main_cube.x_ro = 0;
+		}
+	}
+
+	if (main_cube.move_a == 1)
+	{
+		if (main_cube.move_a_time != 0)
+		{
+			main_cube.z_ro += 5;
+			main_cube.move_a_time -= 5;
+			camera.x -= 5;
+		}
+		else
+		{
+			main_cube.move_a = 0;
+			main_cube.x -= 90;
+			main_cube.z_ro = 0;
+		}
+	}
+
+	if (main_cube.move_d == 1)
+	{
+		if (main_cube.move_d_time != 0)
+		{
+			main_cube.z_ro -= 5;
+			main_cube.move_d_time -= 5;
+			camera.x += 5;
+		}
+		else
+		{
+			main_cube.move_d = 0;
+			main_cube.x += 90;
+			main_cube.z_ro = 0;
 		}
 	}
 
@@ -64,9 +94,9 @@ void Keyboard(unsigned char key, int x, int y)
 	switch (key)
 	{
 	case 'w':
-		if (main_cube.move_w == 0 && main_cube.move_s == 0 && main_cube.move_a == 0 && main_cube.move_d == 0 && camera_ro_left == 0 && camera_ro_right == 0)
+		if (main_cube.move_w == 0 && main_cube.move_s == 0 && main_cube.move_a == 0 && main_cube.move_d == 0 && camera.ro_left == 0 && camera.ro_right == 0)
 		{
-			switch ((camera_ro - 90) / 90)
+			switch ((camera.ro - 90) / 90)
 			{
 			case 0:
 				main_cube.move_w = 1;
@@ -92,9 +122,9 @@ void Keyboard(unsigned char key, int x, int y)
 		break;
 
 	case 's':
-		if (main_cube.move_w == 0 && main_cube.move_s == 0 && main_cube.move_a == 0 && main_cube.move_d == 0 && camera_ro_left == 0 && camera_ro_right == 0)
+		if (main_cube.move_w == 0 && main_cube.move_s == 0 && main_cube.move_a == 0 && main_cube.move_d == 0 && camera.ro_left == 0 && camera.ro_right == 0)
 		{
-			switch ((camera_ro - 90) / 90)
+			switch ((camera.ro - 90) / 90)
 			{
 			case 0:
 				main_cube.move_s = 1;
@@ -120,9 +150,9 @@ void Keyboard(unsigned char key, int x, int y)
 		break;
 
 	case 'a':
-		if (main_cube.move_w == 0 && main_cube.move_s == 0 && main_cube.move_a == 0 && main_cube.move_d == 0 && camera_ro_left == 0 && camera_ro_right == 0)
+		if (main_cube.move_w == 0 && main_cube.move_s == 0 && main_cube.move_a == 0 && main_cube.move_d == 0 && camera.ro_left == 0 && camera.ro_right == 0)
 		{
-			switch ((camera_ro - 90) / 90)
+			switch ((camera.ro - 90) / 90)
 			{
 			case 0:
 				main_cube.move_a = 1;
@@ -148,9 +178,9 @@ void Keyboard(unsigned char key, int x, int y)
 		break;
 
 	case 'd':
-		if (main_cube.move_w == 0 && main_cube.move_s == 0 && main_cube.move_a == 0 && main_cube.move_d == 0 && camera_ro_left == 0 && camera_ro_right == 0)
+		if (main_cube.move_w == 0 && main_cube.move_s == 0 && main_cube.move_a == 0 && main_cube.move_d == 0 && camera.ro_left == 0 && camera.ro_right == 0)
 		{
-			switch ((camera_ro - 90) / 90)
+			switch ((camera.ro - 90) / 90)
 			{
 			case 0:
 				main_cube.move_d = 1;
@@ -176,18 +206,18 @@ void Keyboard(unsigned char key, int x, int y)
 		break;
 
 	case 'q':
-		if (main_cube.move_w == 0 && main_cube.move_s == 0 && main_cube.move_a == 0 && main_cube.move_d == 0 && camera_ro_left == 0 && camera_ro_right == 0)
+		if (main_cube.move_w == 0 && main_cube.move_s == 0 && main_cube.move_a == 0 && main_cube.move_d == 0 && camera.ro_left == 0 && camera.ro_right == 0)
 		{
-			camera_ro_left = 1;
-			camera_ro_big = 90;
+			camera.ro_left = 1;
+			camera.ro_big = 90;
 		}
 		break;
 
 	case 'e':
-		if (main_cube.move_w == 0 && main_cube.move_s == 0 && main_cube.move_a == 0 && main_cube.move_d == 0 && camera_ro_left == 0 && camera_ro_right == 0)
+		if (main_cube.move_w == 0 && main_cube.move_s == 0 && main_cube.move_a == 0 && main_cube.move_d == 0 && camera.ro_left == 0 && camera.ro_right == 0)
 		{
-			camera_ro_right = 1;
-			camera_ro_big = 90;
+			camera.ro_right = 1;
+			camera.ro_big = 90;
 		}
 		break;
 	}
@@ -239,12 +269,12 @@ void drawScene()
 
 	glPushMatrix();
 	{
-		float x_ro = cos(float(camera_ro) * 3.141592 / 180);
-		float z_ro = sin(float(camera_ro) * 3.141592 / 180);
+		float x_ro = cos(float(camera.ro) * 3.141592 / 180);
+		float z_ro = sin(float(camera.ro) * 3.141592 / 180);
 
 		gluLookAt(
-			(300.0 * x_ro) + camera_x, 300.0, (300.0 * z_ro) + camera_z, //EYE
-			camera_x, 0.0, camera_z, //AT
+			(300.0 * x_ro) + camera.x, 300.0, (300.0 * z_ro) + camera.z, //EYE
+			camera.x, 0.0, camera.z, //AT
 			0.0, 1.0, 0.0); //UP
 
 
