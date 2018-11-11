@@ -5,4 +5,6 @@
 #include <time.h>
 #include <iostream>
 #include <math.h>
+#include <stdlib.h>
+#include <fstream>
 using namespace std;
