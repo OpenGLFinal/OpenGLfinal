@@ -459,7 +459,6 @@ void drawScene()
 		glEnable(GL_LIGHT0);
 		glEnable(GL_COLOR_MATERIAL);
 
-
 	}
 	glPopMatrix();
 	glutSwapBuffers();
