@@ -12,6 +12,7 @@ Camera camera;//카메라
 
 int map[10][10];
 int poss = -900;
+int bounce = 0;//팅기기 시작할때 0 돌아올때 1
 
 void SetupRC()
 {
@@ -59,65 +60,249 @@ void Timer(int value)
 
 	if (main_cube.move_w == 1)
 	{
-		if (main_cube.move_w_time != 0)
+		int crash = 0;
+		for (int i = 0; i < 10; i++)
 		{
-			main_cube.x_ro -= 5;
-			main_cube.move_w_time -= 5;
-			camera.z -= 5;
+			for (int j = 0; j < 10; j++)
+			{
+				if (map[i][j] == 1)
+				{
+					if (main_cube.x >= -900 + j * 180 - 90 && main_cube.x <= -900 + j * 180 + 90 &&
+						main_cube.z - 90 >= -900 + i * 180 - 90 && main_cube.z - 90 <= -900 + i * 180 + 90)
+					{
+						crash = 1;
+						i = 10;
+						j = 10;
+					}
+				}
+			}
 		}
-		else
+		if (crash == 0)
 		{
-			main_cube.move_w = 0;
-			main_cube.z -= 90;
-			main_cube.x_ro = 0;
+			if (main_cube.move_w_time != 0)
+			{
+				main_cube.x_ro -= 5;
+				main_cube.move_w_time -= 5;
+				camera.z -= 5;
+			}
+			else
+			{
+				main_cube.move_w = 0;
+				main_cube.z -= 90;
+				main_cube.x_ro = 0;
+			}
+		}
+		else if(crash == 1)
+		{
+			if (bounce == 0 && main_cube.move_w_time != 0)
+			{
+				main_cube.x_ro -= 5;
+				main_cube.move_w_time -= 5;
+				camera.z -= 5;
+			}
+			else if (bounce == 1 && main_cube.move_w_time != 0)
+			{
+				main_cube.x_ro += 5;
+				main_cube.move_w_time += 5;
+				camera.z += 5;
+			}
+			
+			if (bounce == 0 && main_cube.move_w_time == 50)
+			{
+				bounce = 1;
+			}
+			else if (bounce == 1 && main_cube.move_w_time == 90)
+			{
+				main_cube.move_w = 0;
+				main_cube.x_ro = 0;
+				bounce = 0;
+			}
 		}
 	}
 
 	if (main_cube.move_s == 1)
 	{
-		if (main_cube.move_s_time != 0)
+		int crash = 0;
+		for (int i = 0; i < 10; i++)
 		{
-			main_cube.x_ro += 5;
-			main_cube.move_s_time -= 5;
-			camera.z += 5;
+			for (int j = 0; j < 10; j++)
+			{
+				if (map[i][j] == 1)
+				{
+					if (main_cube.x >= -900 + j * 180 - 90 && main_cube.x <= -900 + j * 180 + 90 &&
+						main_cube.z + 90 >= -900 + i * 180 - 90 && main_cube.z + 90 <= -900 + i * 180 + 90)
+					{
+						crash = 1;
+						i = 10;
+						j = 10;
+					}
+				}
+			}
 		}
-		else
+		if (crash == 0)
 		{
-			main_cube.move_s = 0;
-			main_cube.z += 90;
-			main_cube.x_ro = 0;
+			if (main_cube.move_s_time != 0)
+			{
+				main_cube.x_ro += 5;
+				main_cube.move_s_time -= 5;
+				camera.z += 5;
+			}
+			else
+			{
+				main_cube.move_s = 0;
+				main_cube.z += 90;
+				main_cube.x_ro = 0;
+			}
+		}
+		else if (crash == 1)
+		{
+			if (bounce == 0 && main_cube.move_s_time != 0)
+			{
+				main_cube.x_ro += 5;
+				main_cube.move_s_time -= 5;
+				camera.z += 5;
+			}
+			else if (bounce == 1 && main_cube.move_s_time != 0)
+			{
+				main_cube.x_ro -= 5;
+				main_cube.move_s_time += 5;
+				camera.z -= 5;
+			}
+
+			if (bounce == 0 && main_cube.move_s_time == 50)
+			{
+				bounce = 1;
+			}
+			else if (bounce == 1 && main_cube.move_s_time == 90)
+			{
+				main_cube.move_s = 0;
+				main_cube.x_ro = 0;
+				bounce = 0;
+			}
 		}
 	}
 
 	if (main_cube.move_a == 1)
 	{
-		if (main_cube.move_a_time != 0)
+		int crash = 0;
+		for (int i = 0; i < 10; i++)
 		{
-			main_cube.z_ro += 5;
-			main_cube.move_a_time -= 5;
-			camera.x -= 5;
+			for (int j = 0; j < 10; j++)
+			{
+				if (map[i][j] == 1)
+				{
+					if (main_cube.x - 90 >= -900 + j * 180 - 90 && main_cube.x - 90 <= -900 + j * 180 + 90 &&
+						main_cube.z >= -900 + i * 180 - 90 && main_cube.z <= -900 + i * 180 + 90)
+					{
+						crash = 1;
+						i = 10;
+						j = 10;
+					}
+				}
+			}
 		}
-		else
+		if (crash == 0)
 		{
-			main_cube.move_a = 0;
-			main_cube.x -= 90;
-			main_cube.z_ro = 0;
+			if (main_cube.move_a_time != 0)
+			{
+				main_cube.z_ro += 5;
+				main_cube.move_a_time -= 5;
+				camera.x -= 5;
+			}
+			else
+			{
+				main_cube.move_a = 0;
+				main_cube.x -= 90;
+				main_cube.z_ro = 0;
+			}
+		}
+		else if (crash == 1)
+		{
+			if (bounce == 0 && main_cube.move_a_time != 0)
+			{
+				main_cube.z_ro += 5;
+				main_cube.move_a_time -= 5;
+				camera.x -= 5;
+			}
+			else if (bounce == 1 && main_cube.move_a_time != 0)
+			{
+				main_cube.z_ro -= 5;
+				main_cube.move_a_time += 5;
+				camera.x += 5;
+			}
+
+			if (bounce == 0 && main_cube.move_a_time == 50)
+			{
+				bounce = 1;
+			}
+			else if (bounce == 1 && main_cube.move_a_time == 90)
+			{
+				main_cube.move_a = 0;
+				main_cube.z_ro = 0;
+				bounce = 0;
+			}
 		}
 	}
 
 	if (main_cube.move_d == 1)
 	{
-		if (main_cube.move_d_time != 0)
+		int crash = 0;
+		for (int i = 0; i < 10; i++)
 		{
-			main_cube.z_ro -= 5;
-			main_cube.move_d_time -= 5;
-			camera.x += 5;
+			for (int j = 0; j < 10; j++)
+			{
+				if (map[i][j] == 1)
+				{
+					if (main_cube.x + 90 >= -900 + j * 180 - 90 && main_cube.x + 90 <= -900 + j * 180 + 90 &&
+						main_cube.z >= -900 + i * 180 - 90 && main_cube.z <= -900 + i * 180 + 90)
+					{
+						crash = 1;
+						i = 10;
+						j = 10;
+					}
+				}
+			}
 		}
-		else
+		if (crash == 0)
 		{
-			main_cube.move_d = 0;
-			main_cube.x += 90;
-			main_cube.z_ro = 0;
+			if (main_cube.move_d_time != 0)
+			{
+				main_cube.z_ro -= 5;
+				main_cube.move_d_time -= 5;
+				camera.x += 5;
+			}
+			else
+			{
+				main_cube.move_d = 0;
+				main_cube.x += 90;
+				main_cube.z_ro = 0;
+			}
+		}
+		else if (crash == 1)
+		{
+			if (bounce == 0 && main_cube.move_d_time != 0)
+			{
+				main_cube.z_ro -= 5;
+				main_cube.move_d_time -= 5;
+				camera.x += 5;
+			}
+			else if (bounce == 1 && main_cube.move_d_time != 0)
+			{
+				main_cube.z_ro += 5;
+				main_cube.move_d_time += 5;
+				camera.x -= 5;
+			}
+
+			if (bounce == 0 && main_cube.move_d_time == 50)
+			{
+				bounce = 1;
+			}
+			else if (bounce == 1 && main_cube.move_d_time == 90)
+			{
+				main_cube.move_d = 0;
+				main_cube.z_ro = 0;
+				bounce = 0;
+			}
 		}
 	}
 
@@ -327,10 +512,10 @@ void drawScene()
 		{
 			glColor3ub(150, 150, 150);
 			glBegin(GL_POLYGON);
-			glVertex3f(-900, 0, -900);
-			glVertex3f(-900, 0, 900);
-			glVertex3f(900, 0, 900);
-			glVertex3f(900, 0, -900);
+			glVertex3f(-1000, 0, -1000);
+			glVertex3f(-1000, 0, 1000);
+			glVertex3f(1000, 0, 1000);
+			glVertex3f(1000, 0, -1000);
 			glEnd();
 		}
 		glPopMatrix();
@@ -356,88 +541,7 @@ void drawScene()
 			}
 		}
 
-		/*
-		glPushMatrix();
-
-		// 0번 광원 배치.
-
-		glEnable(GL_COLOR_MATERIAL);
-
-		glEnable(GL_LIGHTING);
-
-		glEnable(GL_LIGHT0);
-
-
-		GLfloat lightpos[] = { 0, -300, 0, 1 };
-
-		glLightfv(GL_LIGHT0, GL_POSITION, lightpos);
-
-
-		GLfloat ambient[4] = { 1,1,1,1 };
-
-		glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
-
-		glPopMatrix();
-
-
-		/////////////////////////
-
-
-		glEnable(GL_COLOR_MATERIAL);
-
-		glEnable(GL_LIGHTING);                                        //조명 활성화
-
-		glEnable(GL_LIGHT0);                                           //조명 on
-
-
-		float AmbientColor[] = { 0.0f, 0.0f, 0.2f, 0.0f };         //주변광
-
-		float DiffuseColor[] = { 0.5f, 0.5f, 0.5f, 0.0f };          //분산광
-
-		float SpecularColor[] = { 0.5f, 0.5f, 0.5f, 0.0f };        //방사광
-
-		float Position[] = { 0.0f, 50.0f, 0.0f, 1.0f };  //조명 위치
-
-
-		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);                 // 검은색으로 화면 지움
-
-		glShadeModel(GL_SMOOTH);                              // 매끄러운 세이딩 사용
-
-		glEnable(GL_DEPTH_TEST);                              // 가려진 면 제거
-
-		glEnable(GL_CULL_FACE);                               // 후면 제거
-
-		glFrontFace(GL_CCW);                                  // 다각형을 반시계방향으로 감는다.
-
-
-		glEnable(GL_LIGHTING);                                // 조명 활성화
-
-
-
-		// LIGHT0 설정
-
-		glLightfv(GL_LIGHT0, GL_AMBIENT, AmbientColor);       // 주변광 성분 설정
-
-		glLightfv(GL_LIGHT0, GL_DIFFUSE, DiffuseColor);       // 분산광 성분 설정
-
-		glLightfv(GL_LIGHT0, GL_POSITION, Position);     // 광원 위치 설정
-
-
-															  // LIGHT0을 켠다.
-
-		glEnable(GL_LIGHT0);
-
-
-		float spotlightDirection[] = { 0.0f, 0.0f, -1.0f };              // 스포트라이트 방향
-
-		glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 80.0f);                  // 80도 원뿔
-
-		glLightf(GL_LIGHT1, GL_SPOT_EXPONENT, 80.0f);                 // 초점 설정
-
-		glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, spotlightDirection);   // 방향 설정
-		*/
-
-
+		//카메라
 		GLfloat AmbientLight[] = { 0.1f, 0.1f, 0.1f, 0.0f };//주변 조명
 		GLfloat DiffuseLight[] = { 1.5f, 1.5f, 1.5f, 0.0f };//산란 반사 조명
 		GLfloat SpecularLight[] = { 0.5f, 0.5f, 0.5f, 0.0f };//거울반사 조명
