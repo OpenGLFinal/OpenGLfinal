@@ -123,7 +123,6 @@
     <ClInclude Include="basic.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="main_cube.h" />
-    <ClInclude Include="ObjLoader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
