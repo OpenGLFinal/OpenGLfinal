@@ -120,6 +120,7 @@
     <ClCompile Include="main_cube.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\Downloads\ObjLoader.h" />
     <ClInclude Include="basic.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="main_cube.h" />
