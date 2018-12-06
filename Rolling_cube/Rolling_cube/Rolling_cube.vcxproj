@@ -116,12 +116,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="enemy_cube.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="main_cube.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="basic.h" />
     <ClInclude Include="camera.h" />
+    <ClInclude Include="enemy_cube.h" />
     <ClInclude Include="main_cube.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

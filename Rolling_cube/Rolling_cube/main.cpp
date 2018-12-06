@@ -1,5 +1,6 @@
 #include "basic.h"
 #include "main_cube.h"
+#include "enemy_cube.h"
 #include "camera.h"
 
 GLvoid drawScene(GLvoid);
@@ -8,6 +9,7 @@ GLUquadricObj *glu_fill;
 GLUquadricObj *glu_line;
 
 Main_cube main_cube;//주인공 큐브
+Enemy_cube enemy_cube;//적 큐브
 Camera camera;//카메라
 
 int map[10][10];
@@ -58,6 +60,7 @@ void Timer(int value)
 
 	camera.timer();
 
+	//주인공 큐브 움직임
 	if (main_cube.move_w == 1)
 	{
 		int crash = 0;
@@ -306,6 +309,110 @@ void Timer(int value)
 		}
 	}
 
+	//적 큐브 어디로 갈까나
+	int trues = 1;
+	if (enemy_cube.move_time == 0 && enemy_cube.move_w == 0 && enemy_cube.move_s == 0 && enemy_cube.move_a == 0 && enemy_cube.move_d == 0)
+	{
+		do
+		{
+			enemy_cube.next_move = rand() % 4;
+			if (enemy_cube.next_move == 0)
+			{
+				if (map[(enemy_cube.z - 180) / 180 + 5][enemy_cube.x / 180 + 5] == 0)
+				{
+					trues = 0;
+					enemy_cube.move_w = 1;
+					enemy_cube.move_time = 90;
+				}
+			}
+			else if (enemy_cube.next_move == 1)
+			{
+				if (map[(enemy_cube.z + 180) / 180 + 5][enemy_cube.x / 180 + 5] == 0)
+				{
+					trues = 0;
+					enemy_cube.move_s = 1;
+					enemy_cube.move_time = 90;
+				}
+			}
+			else if (enemy_cube.next_move == 2)
+			{
+				if (map[enemy_cube.z / 180 + 5][(enemy_cube.x - 180) / 180 + 5] == 0)
+				{
+					trues = 0;
+					enemy_cube.move_a = 1;
+					enemy_cube.move_time = 90;
+				}
+			}
+			else if (enemy_cube.next_move == 3)
+			{
+				if (map[enemy_cube.z / 180 + 5][(enemy_cube.x + 180) / 180 + 5] == 0)
+				{
+					trues = 0;
+					enemy_cube.move_d = 1;
+					enemy_cube.move_time = 90;
+				}
+			}
+		} while (trues);
+	}
+
+	//적 큐브
+	if (enemy_cube.move_w == 1)
+	{
+		if (enemy_cube.move_time != 0)
+		{
+			enemy_cube.x_ro -= 3;
+			enemy_cube.move_time -= 3;
+		}
+		else
+		{
+			enemy_cube.move_w = 0;
+			enemy_cube.z -= 180;
+			enemy_cube.x_ro = 0;
+		}
+	}
+	else if (enemy_cube.move_s == 1)
+	{
+		if (enemy_cube.move_time != 0)
+		{
+			enemy_cube.x_ro += 3;
+			enemy_cube.move_time -= 3;
+		}
+		else
+		{
+			enemy_cube.move_s = 0;
+			enemy_cube.z += 180;
+			enemy_cube.x_ro = 0;
+		}
+	}
+	else if (enemy_cube.move_a == 1)
+	{
+		if (enemy_cube.move_time != 0)
+		{
+			enemy_cube.z_ro += 3;
+			enemy_cube.move_time -= 3;
+		}
+		else
+		{
+			enemy_cube.move_a = 0;
+			enemy_cube.x -= 180;
+			enemy_cube.z_ro = 0;
+		}
+	}
+	else if (enemy_cube.move_d == 1)
+	{
+		if (enemy_cube.move_time != 0)
+		{
+			enemy_cube.z_ro -= 3;
+			enemy_cube.move_time -= 3;
+		}
+		else
+		{
+			enemy_cube.move_d = 0;
+			enemy_cube.x += 180;
+			enemy_cube.z_ro = 0;
+		}
+	}
+
 
 	glutPostRedisplay();
 	glutTimerFunc(20, Timer, 1);
@@ -521,6 +628,7 @@ void drawScene()
 		glPopMatrix();
 
 		main_cube.draw();
+		enemy_cube.draw();
 
 		for (int i = 0; i < 10; i++)
 		{
@@ -542,6 +650,7 @@ void drawScene()
 		}
 
 		//카메라
+		/*
 		GLfloat AmbientLight[] = { 0.1f, 0.1f, 0.1f, 0.0f };//주변 조명
 		GLfloat DiffuseLight[] = { 1.5f, 1.5f, 1.5f, 0.0f };//산란 반사 조명
 		GLfloat SpecularLight[] = { 0.5f, 0.5f, 0.5f, 0.0f };//거울반사 조명
@@ -562,6 +671,7 @@ void drawScene()
 
 		glEnable(GL_LIGHT0);
 		glEnable(GL_COLOR_MATERIAL);
+		*/
 
 	}
 	glPopMatrix();

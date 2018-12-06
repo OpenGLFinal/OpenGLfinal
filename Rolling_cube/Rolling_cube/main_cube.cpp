@@ -3,7 +3,7 @@
 
 void Main_cube::draw()
 {
-	glPushMatrix();//주인공 사각형
+	glPushMatrix();//적 사각형(명예 파랑이~~!)
 	{
 		glTranslatef(x, 45, z);
 
