@@ -11,7 +11,6 @@ GLUquadricObj *glu_line;
 Main_cube main_cube;//주인공 큐브
 Enemy_cube enemy_cube;//적 큐브
 Camera camera;//카메라
-
 int map[10][10];
 int poss = -900;
 int bounce = 0;//팅기기 시작할때 0 돌아올때 1
@@ -606,13 +605,20 @@ void drawScene()
 
 	glPushMatrix();
 	{
+		glEnable(GL_COLOR_MATERIAL);
+		glEnable(GL_LIGHTING);
+
 		float x_ro = cos(float(camera.ro) * 3.141592 / 180);
 		float z_ro = sin(float(camera.ro) * 3.141592 / 180);
 
+	
 		gluLookAt(
 			(300.0 * x_ro) + camera.x, 300.0, (300.0 * z_ro) + camera.z, //EYE
 			camera.x, 0.0, camera.z, //AT
 			0.0, 1.0, 0.0); //UP
+
+
+		enemy_cube.light_draw();
 
 
 		glPushMatrix();//바닥 판
@@ -627,8 +633,8 @@ void drawScene()
 		}
 		glPopMatrix();
 
-		main_cube.draw();
-		enemy_cube.draw();
+		main_cube.draw();//메인큐브
+		enemy_cube.draw();//적큐브
 
 		for (int i = 0; i < 10; i++)
 		{
@@ -648,31 +654,6 @@ void drawScene()
 				}
 			}
 		}
-
-		//카메라
-		/*
-		GLfloat AmbientLight[] = { 0.1f, 0.1f, 0.1f, 0.0f };//주변 조명
-		GLfloat DiffuseLight[] = { 1.5f, 1.5f, 1.5f, 0.0f };//산란 반사 조명
-		GLfloat SpecularLight[] = { 0.5f, 0.5f, 0.5f, 0.0f };//거울반사 조명
-		GLfloat lightPos[] = { 0, 50, 0, 1 };
-		GLfloat specref[] = { 1,1,1,1 };
-		glEnable(GL_LIGHTING);
-
-		glLightfv(GL_LIGHT0, GL_AMBIENT, AmbientLight);
-		glLightfv(GL_LIGHT0, GL_DIFFUSE, DiffuseLight);
-		glLightfv(GL_LIGHT0, GL_SPECULAR, SpecularLight);
-		glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
-
-		glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
-
-		glMaterialfv(GL_FRONT, GL_SPECULAR, specref);
-		glMateriali(GL_FRONT, GL_SHININESS, 64);
-
-
-		glEnable(GL_LIGHT0);
-		glEnable(GL_COLOR_MATERIAL);
-		*/
-
 	}
 	glPopMatrix();
 	glutSwapBuffers();
