@@ -34,6 +34,19 @@ void CSound::Add_sound()
 		, &pSound[0]
 	); // 배경음 사운드
 
+	pSystem->createStream(
+		"Sound\\main_move.mp3"
+		, FMOD_2D | FMOD_LOOP_OFF
+		, nullptr
+		, &pSound[1]
+	);
+	
+	pSystem->createStream(
+		"Sound\\enemy_move.mp3"
+		, FMOD_2D | FMOD_LOOP_OFF
+		, nullptr
+		, &pSound[2]
+	);
 }
 
 void CSound::Play(int n)

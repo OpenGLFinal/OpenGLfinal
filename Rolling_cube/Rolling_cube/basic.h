@@ -14,4 +14,4 @@
 
 using namespace std;
 
-#define map_length 10
+#define map_length 20

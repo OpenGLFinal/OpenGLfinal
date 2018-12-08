@@ -4,11 +4,11 @@ class Enemy_cube
 {
 public:
 	//º¯¼ö
-	int x = 180 * 3;
-	int z = 180 * -4;
+	int x = 180 * 8;
+	int z = 180 * -9;
 
-	int light_x = 180 * 3 + 90;
-	int light_z = 180 * -3;
+	int light_x = 180 * 8 + 90;
+	int light_z = 180 * -8;
 
 	int move_w = 0;
 	int move_s = 0;

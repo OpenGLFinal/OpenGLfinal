@@ -79,6 +79,7 @@ Alpha_light alpha_light;//투명빛
 
 int bounce = 0;//팅기기 시작할때 0 돌아올때 1
 int before_move = 9;//적 큐브가 전에 어딜 갔을려나?
+float enemy_sound = 1;
 
 int a = 0;//임시로 테스트 카메라 시점전환////////////////
 
@@ -88,6 +89,13 @@ void SetupRC()
 	snd.pSound[0]->release();
 	snd.Add_sound();
 	snd.Play(0);
+
+	snd.pSound[1]->release();
+	snd.Add_sound();
+	
+	snd.pSound[2]->release();
+	snd.Add_sound();
+
 
 	glGenTextures(1, main_cube.main_cube_sp);
 
@@ -145,6 +153,13 @@ void SetupRC()
 
 void Timer(int value)
 {
+	enemy_sound = 1.5 - sqrt((main_cube.x - enemy_cube.x) * (main_cube.x - enemy_cube.x) + (main_cube.z - enemy_cube.z) * (main_cube.z - enemy_cube.z)) / 1800.0f;
+	if(enemy_sound > 0)
+		snd.pChannel[2]->setVolume(enemy_sound);
+	else
+		snd.pChannel[2]->setVolume(0);
+
+
 	for (int i = 0; i < 100; i++)
 	{
 		if (main_cube.cookie_active[i] == 1)
@@ -193,6 +208,7 @@ void Timer(int value)
 				main_cube.z -= 90;
 				main_cube.x_ro = 0;
 				main_cube.cookie_make();
+				snd.Play(1);
 			}
 		}
 		else if(crash == 1)
@@ -219,6 +235,7 @@ void Timer(int value)
 				main_cube.move_w = 0;
 				main_cube.x_ro = 0;
 				bounce = 0;
+				snd.Play(1);
 			}
 		}
 	}
@@ -256,6 +273,7 @@ void Timer(int value)
 				main_cube.z += 90;
 				main_cube.x_ro = 0;
 				main_cube.cookie_make();
+				snd.Play(1);
 			}
 		}
 		else if (crash == 1)
@@ -282,6 +300,7 @@ void Timer(int value)
 				main_cube.move_s = 0;
 				main_cube.x_ro = 0;
 				bounce = 0;
+				snd.Play(1);
 			}
 		}
 	}
@@ -319,6 +338,7 @@ void Timer(int value)
 				main_cube.x -= 90;
 				main_cube.z_ro = 0;
 				main_cube.cookie_make();
+				snd.Play(1);
 			}
 		}
 		else if (crash == 1)
@@ -345,6 +365,7 @@ void Timer(int value)
 				main_cube.move_a = 0;
 				main_cube.z_ro = 0;
 				bounce = 0;
+				snd.Play(1);
 			}
 		}
 	}
@@ -382,6 +403,7 @@ void Timer(int value)
 				main_cube.x += 90;
 				main_cube.z_ro = 0;
 				main_cube.cookie_make();
+				snd.Play(1);
 			}
 		}
 		else if (crash == 1)
@@ -408,6 +430,7 @@ void Timer(int value)
 				main_cube.move_d = 0;
 				main_cube.z_ro = 0;
 				bounce = 0;
+				snd.Play(1);
 			}
 		}
 	}
@@ -484,10 +507,10 @@ void Timer(int value)
 				enemy_cube.next_move = rand() % 4;
 				if (enemy_cube.next_move == 0)
 				{
-					if (maps.map[(enemy_cube.z - 180) / 180 + 5][enemy_cube.x / 180 + 5] == 0)
+					if (maps.map[(enemy_cube.z - 180) / 180 + 10][enemy_cube.x / 180 + 10] == 0)
 					{
-						if (before_move != 1 || (maps.map[(enemy_cube.z + 180) / 180 + 5][enemy_cube.x / 180 + 5] == 1 &&
-							maps.map[enemy_cube.z / 180 + 5][(enemy_cube.x - 180) / 180 + 5] == 1 && maps.map[enemy_cube.z / 180 + 5][(enemy_cube.x + 180) / 180 + 5] == 1))
+						if (before_move != 1 || (maps.map[(enemy_cube.z + 180) / 180 + 10][enemy_cube.x / 180 + 10] == 1 &&
+							maps.map[enemy_cube.z / 180 + 10][(enemy_cube.x - 180) / 180 + 10] == 1 && maps.map[enemy_cube.z / 180 + 10][(enemy_cube.x + 180) / 180 + 10] == 1))
 						{
 							trues = 0;
 							enemy_cube.move_w = 1;
@@ -498,10 +521,10 @@ void Timer(int value)
 				}
 				else if (enemy_cube.next_move == 1)
 				{
-					if (maps.map[(enemy_cube.z + 180) / 180 + 5][enemy_cube.x / 180 + 5] == 0)
+					if (maps.map[(enemy_cube.z + 180) / 180 + 10][enemy_cube.x / 180 + 10] == 0)
 					{
-						if (before_move != 0 || (maps.map[(enemy_cube.z - 180) / 180 + 5][enemy_cube.x / 180 + 5] == 1 &&
-							maps.map[enemy_cube.z / 180 + 5][(enemy_cube.x - 180) / 180 + 5] == 1 && maps.map[enemy_cube.z / 180 + 5][(enemy_cube.x + 180) / 180 + 5] == 1))
+						if (before_move != 0 || (maps.map[(enemy_cube.z - 180) / 180 + 10][enemy_cube.x / 180 + 10] == 1 &&
+							maps.map[enemy_cube.z / 180 + 10][(enemy_cube.x - 180) / 180 + 10] == 1 && maps.map[enemy_cube.z / 180 + 10][(enemy_cube.x + 180) / 180 + 10] == 1))
 						{
 							trues = 0;
 							enemy_cube.move_s = 1;
@@ -512,10 +535,10 @@ void Timer(int value)
 				}
 				else if (enemy_cube.next_move == 2)
 				{
-					if (maps.map[enemy_cube.z / 180 + 5][(enemy_cube.x - 180) / 180 + 5] == 0)
+					if (maps.map[enemy_cube.z / 180 + 10][(enemy_cube.x - 180) / 180 + 10] == 0)
 					{
-						if (before_move != 3 || (maps.map[(enemy_cube.z - 180) / 180 + 5][enemy_cube.x / 180 + 5] == 1 &&
-							maps.map[(enemy_cube.z + 180) / 180 + 5][enemy_cube.x / 180 + 5] == 1 && maps.map[enemy_cube.z / 180 + 5][(enemy_cube.x + 180) / 180 + 5] == 1))
+						if (before_move != 3 || (maps.map[(enemy_cube.z - 180) / 180 + 10][enemy_cube.x / 180 + 10] == 1 &&
+							maps.map[(enemy_cube.z + 180) / 180 + 10][enemy_cube.x / 180 + 10] == 1 && maps.map[enemy_cube.z / 180 + 10][(enemy_cube.x + 180) / 180 + 10] == 1))
 						{
 							trues = 0;
 							enemy_cube.move_a = 1;
@@ -526,10 +549,10 @@ void Timer(int value)
 				}
 				else if (enemy_cube.next_move == 3)
 				{
-					if (maps.map[enemy_cube.z / 180 + 5][(enemy_cube.x + 180) / 180 + 5] == 0)
+					if (maps.map[enemy_cube.z / 180 + 10][(enemy_cube.x + 180) / 180 + 10] == 0)
 					{
-						if (before_move != 2 || (maps.map[(enemy_cube.z - 180) / 180 + 5][enemy_cube.x / 180 + 5] == 1 &&
-							maps.map[(enemy_cube.z + 180) / 180 + 5][enemy_cube.x / 180 + 5] == 1 && maps.map[enemy_cube.z / 180 + 5][(enemy_cube.x - 180) / 180 + 5] == 1))
+						if (before_move != 2 || (maps.map[(enemy_cube.z - 180) / 180 + 10][enemy_cube.x / 180 + 10] == 1 &&
+							maps.map[(enemy_cube.z + 180) / 180 + 10][enemy_cube.x / 180 + 10] == 1 && maps.map[enemy_cube.z / 180 + 10][(enemy_cube.x - 180) / 180 + 10] == 1))
 						{
 							trues = 0;
 							enemy_cube.move_d = 1;
@@ -556,6 +579,7 @@ void Timer(int value)
 			enemy_cube.move_w = 0;
 			enemy_cube.z -= 180;
 			enemy_cube.x_ro = 0;
+			snd.Play(2);
 		}
 	}
 	else if (enemy_cube.move_s == 1)
@@ -571,6 +595,7 @@ void Timer(int value)
 			enemy_cube.move_s = 0;
 			enemy_cube.z += 180;
 			enemy_cube.x_ro = 0;
+			snd.Play(2);
 		}
 	}
 	else if (enemy_cube.move_a == 1)
@@ -586,6 +611,7 @@ void Timer(int value)
 			enemy_cube.move_a = 0;
 			enemy_cube.x -= 180;
 			enemy_cube.z_ro = 0;
+			snd.Play(2);
 		}
 	}
 	else if (enemy_cube.move_d == 1)
@@ -601,6 +627,7 @@ void Timer(int value)
 			enemy_cube.move_d = 0;
 			enemy_cube.x += 180;
 			enemy_cube.z_ro = 0;
+			snd.Play(2);
 		}
 	}
 
@@ -831,7 +858,7 @@ void drawScene()
 		else
 		{
 			gluLookAt(
-				0, 2000, 0, //EYE
+				0, 3500, 0, //EYE
 				0, 0.0, -1, //AT
 				0.0, 1.0, 0.0); //UP
 		}
