@@ -778,7 +778,6 @@ GLubyte * LoadDIBitmap(const char *filename, BITMAPINFO **info)
 
 	// BITMAPINFOHEADER 위치로 간다.
 	infosize = header.bfOffBits - sizeof(BITMAPFILEHEADER);
-
 	// 비트맵 이미지 데이터를 넣을 메모리 할당을 한다.
 	if ((*info = (BITMAPINFO *)malloc(infosize)) == NULL) {
 		fclose(fp);
@@ -815,5 +814,4 @@ GLubyte * LoadDIBitmap(const char *filename, BITMAPINFO **info)
 
 	fclose(fp);
 	return bits;
-
 }
