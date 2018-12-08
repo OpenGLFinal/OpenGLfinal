@@ -7,8 +7,8 @@ public:
 	int x = 180 * 3;
 	int z = 180 * -4;
 
-	int light_x = 0;
-	int light_z = 0;
+	int light_x = 180 * 3;
+	int light_z = 180 * -4;
 
 	int move_w = 0;
 	int move_s = 0;
