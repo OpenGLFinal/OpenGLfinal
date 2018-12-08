@@ -3,6 +3,8 @@
 class Maps
 {
 public:
+	GLuint map_sp[1];
+
 	//º¯¼ö
 	int map[map_length][map_length];
 

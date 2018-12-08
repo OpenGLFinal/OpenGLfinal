@@ -12,6 +12,71 @@ GLvoid Reshape(int w, int h);
 GLUquadricObj *glu_fill;
 GLUquadricObj *glu_line;
 
+GLubyte * LoadDIBitmap(const char *filename, BITMAPINFO **info)
+{
+	FILE *fp;
+	GLubyte *bits;
+	int bitsize, infosize;
+	BITMAPFILEHEADER header;
+
+	// 바이너리 읽기 모드로 파일을 연다 
+	if ((fp = fopen(filename, "rb")) == NULL)
+		return NULL;
+	// 비트맵 파일 헤더를 읽는다. 
+	if (fread(&header, sizeof(BITMAPFILEHEADER), 1, fp) < 1)
+	{
+		fclose(fp);
+		return NULL;
+	}
+	// 파일이 BMP 파일인지 확인한다. 
+	if (header.bfType != 'MB')
+	{
+		fclose(fp);
+		return NULL;
+	}
+	// BITMAPINFOHEADER 위치로 간다. 
+	infosize = header.bfOffBits - sizeof(BITMAPFILEHEADER);
+	// 비트맵 이미지 데이터를 넣을 메모리 할당을 한다. 
+	if ((*info = (BITMAPINFO *)malloc(infosize)) == NULL)
+	{
+		fclose(fp);
+		exit(0);
+		return NULL;
+	}
+	// 비트맵 인포 헤더를 읽는다. 
+	if (fread(*info, 1, infosize, fp) < (unsigned int)infosize)
+	{
+		free(*info);
+		fclose(fp);
+		return NULL;
+	}
+	// 비트맵의 크기 설정 
+	if ((bitsize = (*info)->bmiHeader.biSizeImage) == 0)
+		bitsize = ((*info)->bmiHeader.biWidth*(*info)->bmiHeader.biBitCount + 7) / 8.0 *  abs((*info)->bmiHeader.biHeight);
+	// 비트맵의 크기만큼 메모리를 할당한다. 
+	if ((bits = (unsigned char *)malloc(bitsize)) == NULL)
+	{
+		free(*info);
+		fclose(fp);
+		return NULL;
+	}
+	// 비트맵 데이터를 bit(GLubyte 타입)에 저장한다. 
+	if (fread(bits, 1, bitsize, fp) < (unsigned int)bitsize)
+	{
+		free(*info);
+		free(bits);
+		fclose(fp);
+		return NULL;
+	}
+	fclose(fp);
+	return bits;
+}
+
+GLubyte *TexBits; // 데이터를 가리킬 포인터
+BITMAPINFO *info; // 비트맵 헤더 저장할 변수
+GLubyte * LoadDIBitmap(const char *filename, BITMAPINFO **info);
+
+
 Main_cube main_cube;//주인공 큐브
 Enemy_cube enemy_cube;//적 큐브
 Camera camera;//카메라
@@ -27,6 +92,30 @@ int a = 0;//임시로 테스트 카메라 시점전환////////////////
 
 void SetupRC()
 {
+	glGenTextures(1, main_cube.main_cube_sp);
+
+	glGenTextures(1, maps.map_sp);
+
+	glBindTexture(GL_TEXTURE_2D, main_cube.main_cube_sp[0]);
+	TexBits = LoadDIBitmap("image\\main_cube.bmp", &info);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, 90, 90, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, TexBits);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	glBindTexture(GL_TEXTURE_2D, maps.map_sp[0]);
+	TexBits = LoadDIBitmap("image\\map.bmp", &info);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, 180, 180, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, TexBits);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	// 텍스처 모드 설정
+	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_COLOR, GL_MODULATE);
+
+
 	alpha_light.x[0] = 0;
 	alpha_light.z[0] = 0;
 	alpha_light.x[1] = 900;
@@ -325,6 +414,18 @@ void Timer(int value)
 			}
 		}
 	}
+
+	//주인공 큐브 은신
+	int on = 0;
+	for (int i = 0; i < 3; i++)
+	{
+		if (main_cube.x == alpha_light.x[i] && main_cube.z == alpha_light.z[i])
+			on = 1;
+	}
+	if (on == 1)
+		main_cube.invisibl = 1;
+	else
+		main_cube.invisibl = 0;
 
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -698,6 +799,8 @@ void drawScene()
 	glEnable(GL_DEPTH_TEST);
 	glShadeModel(GL_FLAT);
 	glEnable(GL_CULL_FACE);
+	glEnable(GL_COLOR_MATERIAL);
+	glEnable(GL_LIGHTING);
 
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -708,10 +811,6 @@ void drawScene()
 
 	glPushMatrix();
 	{
-		glEnable(GL_COLOR_MATERIAL);
-		glEnable(GL_LIGHTING);
-		glEnable(GL_BLEND);
-
 		glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
 
 		GLfloat gray[] = { 0.75f, 0.75f, 0.75f, 1.0f };
@@ -762,67 +861,4 @@ void Reshape(int w, int h)
 	gluPerspective(60.0, view_ratio, 1.0, 10000.0);
 
 	glMatrixMode(GL_MODELVIEW);
-}
-
-GLubyte * LoadDIBitmap(const char *filename, BITMAPINFO **info)
-{
-	FILE *fp;
-	GLubyte *bits;
-	int bitsize, infosize;
-	BITMAPFILEHEADER header;
-
-	// 바이너리 읽기 모드로 파일을 연다
-	if ((fp = fopen(filename, "rb")) == NULL)
-		return NULL;
-
-	// 비트맵 파일 헤더를 읽는다.
-	if (fread(&header, sizeof(BITMAPFILEHEADER), 1, fp) < 1) {
-		fclose(fp);
-		return NULL;
-	}
-
-	// 파일이 BMP 파일인지 확인한다.
-	if (header.bfType != 'MB') {
-		fclose(fp);
-		return NULL;
-	}
-
-	// BITMAPINFOHEADER 위치로 간다.
-	infosize = header.bfOffBits - sizeof(BITMAPFILEHEADER);
-	// 비트맵 이미지 데이터를 넣을 메모리 할당을 한다.
-	if ((*info = (BITMAPINFO *)malloc(infosize)) == NULL) {
-		fclose(fp);
-		exit(0);
-		return NULL;
-	}
-
-	// 비트맵 인포 헤더를 읽는다.
-	if (fread(*info, 1, infosize, fp) < (unsigned int)infosize) {
-		free(*info);
-		fclose(fp);
-		return NULL;
-	}
-
-	// 비트맵의 크기 설정
-	if ((bitsize = (*info)->bmiHeader.biSizeImage) == 0)
-		bitsize = ((*info)->bmiHeader.biWidth *
-		(*info)->bmiHeader.biBitCount + 7) / 8.0 *
-		abs((*info)->bmiHeader.biHeight);
-
-	// 비트맵의 크기만큼 메모리를 할당한다.
-	if ((bits = (unsigned char *)malloc(bitsize)) == NULL) {
-		free(*info);
-		fclose(fp);
-		return NULL;
-	}
-
-	// 비트맵 데이터를 bit(GLubyte 타입)에 저장한다.
-	if (fread(bits, 1, bitsize, fp) < (unsigned int)bitsize) {
-		free(*info); free(bits);
-		fclose(fp);
-		return NULL;
-	}
-
-	fclose(fp);
-	return bits;
 }

@@ -12,54 +12,84 @@ void Maps::draw()
 				glPushMatrix();//ÁöÇü
 				{
 					glTranslatef(-90 * map_length + (j * 180), 90, -90 * map_length + (i * 180));
-					glColor3ub(30, 30, 30);
-
-					glBegin(GL_QUADS);
-					glVertex3f(-90, 90, -90);
-					glVertex3f(-90, 90, 90);
-					glVertex3f(90, 90, 90);
-					glVertex3f(90, 90, -90);
-					glEnd();
-
-					glBegin(GL_QUADS);
-					glVertex3f(90, -90, -90);
-					glVertex3f(90, -90, 90);
-					glVertex3f(-90, -90, 90);
-					glVertex3f(-90, -90, -90);
-					glEnd();
-
-					glBegin(GL_QUADS);
-					glVertex3f(-90, 90, -90);
-					glVertex3f(-90, -90, -90);
-					glVertex3f(-90, -90, 90);
-					glVertex3f(-90, 90, 90);
-					glEnd();
-
-					glBegin(GL_QUADS);
-					glVertex3f(90, 90, 90);
-					glVertex3f(90, -90, 90);
-					glVertex3f(90, -90, -90);
-					glVertex3f(90, 90, -90);
-					glEnd();
-
-					glBegin(GL_QUADS);
-					glVertex3f(-90, 90, 90);
-					glVertex3f(-90, -90, 90);
-					glVertex3f(90, -90, 90);
-					glVertex3f(90, 90, 90);
-					glEnd();
 					
+					glEnable(GL_TEXTURE_2D);
+					glColor3f(1, 1, 1);
+					glBindTexture(GL_TEXTURE_2D, map_sp[0]);
+
 					glBegin(GL_QUADS);
-					glVertex3f(90, 90, -90);
-					glVertex3f(90, -90, -90);
-					glVertex3f(-90, -90, -90);
-					glVertex3f(-90, 90, -90);
+					glTexCoord2d(0.0f, 1.0f);
+					glVertex3f(-90.0, 90.0, 90.0);
+					glTexCoord2d(0.0f, 0.0f);
+					glVertex3f(-90.0, -90.0, 90.0);
+					glTexCoord2d(1.0f, 0.0f);
+					glVertex3f(90.0, -90.0, 90.0);
+					glTexCoord2d(1.0f, 1.0f);
+					glVertex3f(90.0, 90.0, 90.0);
 					glEnd();
+
+					glBegin(GL_QUADS);
+					glTexCoord2d(0.0f, 1.0f);
+					glVertex3f(90.0, 90.0, 90.0);
+					glTexCoord2d(0.0f, 0.0f);
+					glVertex3f(90.0, -90.0, 90.0);
+					glTexCoord2d(1.0f, 0.0f);
+					glVertex3f(90.0, -90.0, -90.0);
+					glTexCoord2d(1.0f, 1.0f);
+					glVertex3f(90.0, 90.0, -90.0);
+					glEnd();
+
+					glBegin(GL_QUADS);
+					glTexCoord2d(0.0f, 1.0f);
+					glVertex3f(-90.0, 90.0, -90.0);
+					glTexCoord2d(0.0f, 0.0f);
+					glVertex3f(90.0, 90.0, -90.0);
+					glTexCoord2d(1.0f, 0.0f);
+					glVertex3f(90.0, -90.0, -90.0);
+					glTexCoord2d(1.0f, 1.0f);
+					glVertex3f(-90.0, -90.0, -90.0);
+					glEnd();
+
+					glBegin(GL_QUADS);
+					glTexCoord2d(0.0f, 1.0f);
+					glVertex3f(-90.0, 90.0, 90.0);
+					glTexCoord2d(0.0f, 0.0f);
+					glVertex3f(-90.0, 90.0, -90.0);
+					glTexCoord2d(1.0f, 0.0f);
+					glVertex3f(-90.0, -90.0, -90.0);
+					glTexCoord2d(1.0f, 1.0f);
+					glVertex3f(-90.0, -90.0, 90.0);
+					glEnd();
+
+					glBegin(GL_QUADS);
+					glTexCoord2d(0.0f, 1.0f);
+					glVertex3f(-90.0, -90.0, 90.0);
+					glTexCoord2d(0.0f, 0.0f);
+					glVertex3f(-90.0, -90.0, -90.0);
+					glTexCoord2d(1.0f, 0.0f);
+					glVertex3f(90.0, -90.0, -90.0);
+					glTexCoord2d(1.0f, 1.0f);
+					glVertex3f(90.0, -90.0, 90.0);
+					glEnd();
+
+					glBegin(GL_QUADS);
+					glTexCoord2d(0.0f, 1.0f);
+					glVertex3f(-90.0, 90.0, 90.0);
+					glTexCoord2d(0.0f, 0.0f);
+					glVertex3f(90.0, 90.0, 90.0);
+					glTexCoord2d(1.0f, 0.0f);
+					glVertex3f(90.0, 90.0, -90.0);
+					glTexCoord2d(1.0f, 1.0f);
+					glVertex3f(-90.0, 90.0, -90.0);
+					glEnd();
+
+					glDisable(GL_TEXTURE_2D);
 				}
 				glPopMatrix();
 			}
 		}
 	}
+
 
 	glPushMatrix();//¹Ù´Ú ÆÇ
 	{

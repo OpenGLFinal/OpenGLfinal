@@ -1,4 +1,6 @@
 #pragma once
+#define _CRT_SECURE_NO_WARNINGS
+
 
 #include <GL/freeglut.h>
 #include <gl/glut.h> 

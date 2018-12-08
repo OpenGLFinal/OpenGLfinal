@@ -32,7 +32,8 @@ void Main_cube::draw()
 			glTranslatef(-45, 45, 0);
 		}
 
-		glColor3ub(120, 55, 18);
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, main_cube_sp[0]);
 
 		glBegin(GL_QUADS);
 		glTexCoord2d(0.0f, 1.0f);
@@ -99,6 +100,8 @@ void Main_cube::draw()
 		glTexCoord2d(1.0f, 1.0f);
 		glVertex3f(-45.0, 45.0, -45.0);
 		glEnd();
+
+		glDisable(GL_TEXTURE_2D);
 	}
 	glPopMatrix();
 }
