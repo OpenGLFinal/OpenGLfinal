@@ -33,6 +33,7 @@ void Main_cube::draw()
 		}
 
 		glEnable(GL_TEXTURE_2D);
+		glColor3f(0.3, 0.3, 0.3);
 		glBindTexture(GL_TEXTURE_2D, main_cube_sp[0]);
 
 		glBegin(GL_QUADS);
@@ -115,7 +116,7 @@ void Main_cube::cookie_draw()
 			glPushMatrix();
 			{
 				glTranslatef(cookie_x[i], 15, cookie_z[i]);
-				glColor3ub(232, 204, 255);
+				glColor3ub(132, 104, 155);
 				glutSolidCube(30);
 				glColor3ub(0, 0, 0);
 				glutWireCube(30);

@@ -153,7 +153,7 @@ void SetupRC()
 
 void Timer(int value)
 {
-	enemy_sound = 1.5 - sqrt((main_cube.x - enemy_cube.x) * (main_cube.x - enemy_cube.x) + (main_cube.z - enemy_cube.z) * (main_cube.z - enemy_cube.z)) / 1800.0f;
+	enemy_sound = 1.5 - sqrt((main_cube.x - enemy_cube.x) * (main_cube.x - enemy_cube.x) + (main_cube.z - enemy_cube.z) * (main_cube.z - enemy_cube.z)) / 1500.0f;
 	if(enemy_sound > 0)
 		snd.pChannel[2]->setVolume(enemy_sound);
 	else
@@ -509,8 +509,8 @@ void Timer(int value)
 				{
 					if (maps.map[(enemy_cube.z - 180) / 180 + 10][enemy_cube.x / 180 + 10] == 0)
 					{
-						if (before_move != 1 || (maps.map[(enemy_cube.z + 180) / 180 + 10][enemy_cube.x / 180 + 10] == 1 &&
-							maps.map[enemy_cube.z / 180 + 10][(enemy_cube.x - 180) / 180 + 10] == 1 && maps.map[enemy_cube.z / 180 + 10][(enemy_cube.x + 180) / 180 + 10] == 1))
+						if (before_move != 1 || (maps.map[(enemy_cube.z + 180) / 180 + 10][enemy_cube.x / 180 + 10] >= 1 &&
+							maps.map[enemy_cube.z / 180 + 10][(enemy_cube.x - 180) / 180 + 10] >= 1 && maps.map[enemy_cube.z / 180 + 10][(enemy_cube.x + 180) / 180 + 10] >= 1))
 						{
 							trues = 0;
 							enemy_cube.move_w = 1;
@@ -519,12 +519,12 @@ void Timer(int value)
 						}
 					}
 				}
-				else if (enemy_cube.next_move == 1)
+				else if (enemy_cube.next_move >= 1)
 				{
 					if (maps.map[(enemy_cube.z + 180) / 180 + 10][enemy_cube.x / 180 + 10] == 0)
 					{
-						if (before_move != 0 || (maps.map[(enemy_cube.z - 180) / 180 + 10][enemy_cube.x / 180 + 10] == 1 &&
-							maps.map[enemy_cube.z / 180 + 10][(enemy_cube.x - 180) / 180 + 10] == 1 && maps.map[enemy_cube.z / 180 + 10][(enemy_cube.x + 180) / 180 + 10] == 1))
+						if (before_move != 0 || (maps.map[(enemy_cube.z - 180) / 180 + 10][enemy_cube.x / 180 + 10] >= 1 &&
+							maps.map[enemy_cube.z / 180 + 10][(enemy_cube.x - 180) / 180 + 10] >= 1 && maps.map[enemy_cube.z / 180 + 10][(enemy_cube.x + 180) / 180 + 10] >= 1))
 						{
 							trues = 0;
 							enemy_cube.move_s = 1;
@@ -537,8 +537,8 @@ void Timer(int value)
 				{
 					if (maps.map[enemy_cube.z / 180 + 10][(enemy_cube.x - 180) / 180 + 10] == 0)
 					{
-						if (before_move != 3 || (maps.map[(enemy_cube.z - 180) / 180 + 10][enemy_cube.x / 180 + 10] == 1 &&
-							maps.map[(enemy_cube.z + 180) / 180 + 10][enemy_cube.x / 180 + 10] == 1 && maps.map[enemy_cube.z / 180 + 10][(enemy_cube.x + 180) / 180 + 10] == 1))
+						if (before_move != 3 || (maps.map[(enemy_cube.z - 180) / 180 + 10][enemy_cube.x / 180 + 10] >= 1 &&
+							maps.map[(enemy_cube.z + 180) / 180 + 10][enemy_cube.x / 180 + 10] >= 1 && maps.map[enemy_cube.z / 180 + 10][(enemy_cube.x + 180) / 180 + 10] >= 1))
 						{
 							trues = 0;
 							enemy_cube.move_a = 1;
@@ -551,8 +551,8 @@ void Timer(int value)
 				{
 					if (maps.map[enemy_cube.z / 180 + 10][(enemy_cube.x + 180) / 180 + 10] == 0)
 					{
-						if (before_move != 2 || (maps.map[(enemy_cube.z - 180) / 180 + 10][enemy_cube.x / 180 + 10] == 1 &&
-							maps.map[(enemy_cube.z + 180) / 180 + 10][enemy_cube.x / 180 + 10] == 1 && maps.map[enemy_cube.z / 180 + 10][(enemy_cube.x - 180) / 180 + 10] == 1))
+						if (before_move != 2 || (maps.map[(enemy_cube.z - 180) / 180 + 10][enemy_cube.x / 180 + 10] >= 1 &&
+							maps.map[(enemy_cube.z + 180) / 180 + 10][enemy_cube.x / 180 + 10] >= 1 && maps.map[enemy_cube.z / 180 + 10][(enemy_cube.x - 180) / 180 + 10] >= 1))
 						{
 							trues = 0;
 							enemy_cube.move_d = 1;
