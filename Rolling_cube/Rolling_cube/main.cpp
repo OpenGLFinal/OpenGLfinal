@@ -92,6 +92,10 @@ int a = 0;//임시로 테스트 카메라 시점전환////////////////
 
 void SetupRC()
 {
+	snd.pSound[0]->release();
+	snd.Add_sound();
+	snd.Play(0);
+
 	glGenTextures(1, main_cube.main_cube_sp);
 
 	glGenTextures(1, maps.map_sp);

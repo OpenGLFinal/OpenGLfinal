@@ -69,14 +69,21 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>C:\Users\rnrjs\Desktop\개발\OpenGLfinal\Rolling_cube\Rolling_cube\inc;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\rnrjs\Desktop\개발\OpenGLfinal\Rolling_cube\Rolling_cube\FMOD\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -121,6 +128,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="main_cube.cpp" />
     <ClCompile Include="maps.cpp" />
+    <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="alpha_light.h" />
@@ -129,6 +138,9 @@
     <ClInclude Include="enemy_cube.h" />
     <ClInclude Include="main_cube.h" />
     <ClInclude Include="maps.h" />
+    <ClInclude Include="Sound.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

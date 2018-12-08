@@ -14,7 +14,7 @@ void Maps::draw()
 					glTranslatef(-90 * map_length + (j * 180), 90, -90 * map_length + (i * 180));
 					
 					glEnable(GL_TEXTURE_2D);
-					glColor3f(1, 1, 1);
+					glColor3f(0.1, 0.1, 0.1);
 					glBindTexture(GL_TEXTURE_2D, map_sp[0]);
 
 					glBegin(GL_QUADS);
