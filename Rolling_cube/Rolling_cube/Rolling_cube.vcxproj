@@ -119,12 +119,14 @@
     <ClCompile Include="enemy_cube.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="main_cube.cpp" />
+    <ClCompile Include="maps.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="basic.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="enemy_cube.h" />
     <ClInclude Include="main_cube.h" />
+    <ClInclude Include="maps.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

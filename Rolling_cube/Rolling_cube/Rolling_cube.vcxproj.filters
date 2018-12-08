@@ -27,6 +27,9 @@
     <ClCompile Include="enemy_cube.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="maps.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="basic.h">
@@ -39,6 +42,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="enemy_cube.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="maps.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

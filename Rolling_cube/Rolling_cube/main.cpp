@@ -2,6 +2,7 @@
 #include "main_cube.h"
 #include "enemy_cube.h"
 #include "camera.h"
+#include "maps.h"
 
 GLvoid drawScene(GLvoid);
 GLvoid Reshape(int w, int h);
@@ -11,9 +12,9 @@ GLUquadricObj *glu_line;
 Main_cube main_cube;//주인공 큐브
 Enemy_cube enemy_cube;//적 큐브
 Camera camera;//카메라
+Maps maps;//맵
 
-int map[10][10];
-int poss = -900;
+
 int bounce = 0;//팅기기 시작할때 0 돌아올때 1
 int before_move = 9;//적 큐브가 전에 어딜 갔을려나?
 
@@ -30,56 +31,41 @@ void SetupRC()
 
 	if (in.fail()) { cout << "파일을 여는 데 실패했습니다." << endl;}
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < map_length; i++)
 	{
-		for (int j = 0; j < 10; j++)
+		for (int j = 0; j < map_length; j++)
 		{
 			in.get(c);
-			map[i][j] = c - 48;
+			maps.map[i][j] = c - 48;
 		}
 		in.get(c);
 	}
 
 	in.close();
 
-
-
-	for (int i = 0; i < 10; i++)
-	{
-		for (int j = 0; j < 10; j++)
-		{
-			cout << map[i][j];
-		}
-		cout << endl;
-	}
-
 	srand(time(NULL));
 }
 
 void Timer(int value)
 {
-	poss += 10;
-	if (poss > 900)
-		poss = -900;
-
 	camera.timer();
 
 	//주인공 큐브 움직임
 	if (main_cube.move_w == 1)
 	{
 		int crash = 0;
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < map_length; i++)
 		{
-			for (int j = 0; j < 10; j++)
+			for (int j = 0; j < map_length; j++)
 			{
-				if (map[i][j] == 1)
+				if (maps.map[i][j] == 1)
 				{
-					if (main_cube.x >= -900 + j * 180 - 90 && main_cube.x <= -900 + j * 180 + 90 &&
-						main_cube.z - 90 >= -900 + i * 180 - 90 && main_cube.z - 90 <= -900 + i * 180 + 90)
+					if (main_cube.x >= -90 * map_length + j * 180 - 90 && main_cube.x <= -90 * map_length + j * 180 + 90 &&
+						main_cube.z - 90 >= -90 * map_length + i * 180 - 90 && main_cube.z - 90 <= -90 * map_length + i * 180 + 90)
 					{
 						crash = 1;
-						i = 10;
-						j = 10;
+						i = map_length;
+						j = map_length;
 					}
 				}
 			}
@@ -130,18 +116,18 @@ void Timer(int value)
 	if (main_cube.move_s == 1)
 	{
 		int crash = 0;
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < map_length; i++)
 		{
-			for (int j = 0; j < 10; j++)
+			for (int j = 0; j < map_length; j++)
 			{
-				if (map[i][j] == 1)
+				if (maps.map[i][j] == 1)
 				{
-					if (main_cube.x >= -900 + j * 180 - 90 && main_cube.x <= -900 + j * 180 + 90 &&
-						main_cube.z + 90 >= -900 + i * 180 - 90 && main_cube.z + 90 <= -900 + i * 180 + 90)
+					if (main_cube.x >= -90 * map_length + j * 180 - 90 && main_cube.x <= -90 * map_length + j * 180 + 90 &&
+						main_cube.z + 90 >= -90 * map_length + i * 180 - 90 && main_cube.z + 90 <= -90 * map_length + i * 180 + 90)
 					{
 						crash = 1;
-						i = 10;
-						j = 10;
+						i = map_length;
+						j = map_length;
 					}
 				}
 			}
@@ -192,18 +178,18 @@ void Timer(int value)
 	if (main_cube.move_a == 1)
 	{
 		int crash = 0;
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < map_length; i++)
 		{
-			for (int j = 0; j < 10; j++)
+			for (int j = 0; j < map_length; j++)
 			{
-				if (map[i][j] == 1)
+				if (maps.map[i][j] == 1)
 				{
-					if (main_cube.x - 90 >= -900 + j * 180 - 90 && main_cube.x - 90 <= -900 + j * 180 + 90 &&
-						main_cube.z >= -900 + i * 180 - 90 && main_cube.z <= -900 + i * 180 + 90)
+					if (main_cube.x - 90 >= -90 * map_length + j * 180 - 90 && main_cube.x - 90 <= -90 * map_length + j * 180 + 90 &&
+						main_cube.z >= -90 * map_length + i * 180 - 90 && main_cube.z <= -90 * map_length + i * 180 + 90)
 					{
 						crash = 1;
-						i = 10;
-						j = 10;
+						i = map_length;
+						j = map_length;
 					}
 				}
 			}
@@ -254,18 +240,18 @@ void Timer(int value)
 	if (main_cube.move_d == 1)
 	{
 		int crash = 0;
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < map_length; i++)
 		{
-			for (int j = 0; j < 10; j++)
+			for (int j = 0; j < map_length; j++)
 			{
-				if (map[i][j] == 1)
+				if (maps.map[i][j] == 1)
 				{
-					if (main_cube.x + 90 >= -900 + j * 180 - 90 && main_cube.x + 90 <= -900 + j * 180 + 90 &&
-						main_cube.z >= -900 + i * 180 - 90 && main_cube.z <= -900 + i * 180 + 90)
+					if (main_cube.x + 90 >= -90 * map_length + j * 180 - 90 && main_cube.x + 90 <= -90 * map_length + j * 180 + 90 &&
+						main_cube.z >= -90 * map_length + i * 180 - 90 && main_cube.z <= -90 * map_length + i * 180 + 90)
 					{
 						crash = 1;
-						i = 10;
-						j = 10;
+						i = map_length;
+						j = map_length;
 					}
 				}
 			}
@@ -323,10 +309,10 @@ void Timer(int value)
 			enemy_cube.next_move = rand() % 4;
 			if (enemy_cube.next_move == 0)
 			{
-				if (map[(enemy_cube.z - 180) / 180 + 5][enemy_cube.x / 180 + 5] == 0)
+				if (maps.map[(enemy_cube.z - 180) / 180 + 5][enemy_cube.x / 180 + 5] == 0)
 				{
-					if (before_move != 1 || (map[(enemy_cube.z + 180) / 180 + 5][enemy_cube.x / 180 + 5] == 1 &&
-						map[enemy_cube.z / 180 + 5][(enemy_cube.x - 180) / 180 + 5] == 1 && map[enemy_cube.z / 180 + 5][(enemy_cube.x + 180) / 180 + 5] == 1))
+					if (before_move != 1 || (maps.map[(enemy_cube.z + 180) / 180 + 5][enemy_cube.x / 180 + 5] == 1 &&
+						maps.map[enemy_cube.z / 180 + 5][(enemy_cube.x - 180) / 180 + 5] == 1 && maps.map[enemy_cube.z / 180 + 5][(enemy_cube.x + 180) / 180 + 5] == 1))
 					{
 						trues = 0;
 						enemy_cube.move_w = 1;
@@ -337,10 +323,10 @@ void Timer(int value)
 			}
 			else if (enemy_cube.next_move == 1)
 			{
-				if (map[(enemy_cube.z + 180) / 180 + 5][enemy_cube.x / 180 + 5] == 0)
+				if (maps.map[(enemy_cube.z + 180) / 180 + 5][enemy_cube.x / 180 + 5] == 0)
 				{
-					if (before_move != 0 || (map[(enemy_cube.z - 180) / 180 + 5][enemy_cube.x / 180 + 5] == 1 &&
-						map[enemy_cube.z / 180 + 5][(enemy_cube.x - 180) / 180 + 5] == 1 && map[enemy_cube.z / 180 + 5][(enemy_cube.x + 180) / 180 + 5] == 1))
+					if (before_move != 0 || (maps.map[(enemy_cube.z - 180) / 180 + 5][enemy_cube.x / 180 + 5] == 1 &&
+						maps.map[enemy_cube.z / 180 + 5][(enemy_cube.x - 180) / 180 + 5] == 1 && maps.map[enemy_cube.z / 180 + 5][(enemy_cube.x + 180) / 180 + 5] == 1))
 					{
 						trues = 0;
 						enemy_cube.move_s = 1;
@@ -351,10 +337,10 @@ void Timer(int value)
 			}
 			else if (enemy_cube.next_move == 2)
 			{
-				if (map[enemy_cube.z / 180 + 5][(enemy_cube.x - 180) / 180 + 5] == 0)
+				if (maps.map[enemy_cube.z / 180 + 5][(enemy_cube.x - 180) / 180 + 5] == 0)
 				{
-					if (before_move != 3 || (map[(enemy_cube.z - 180) / 180 + 5][enemy_cube.x / 180 + 5] == 1 &&
-						map[(enemy_cube.z + 180) / 180 + 5][enemy_cube.x / 180 + 5] == 1 && map[enemy_cube.z / 180 + 5][(enemy_cube.x + 180) / 180 + 5] == 1))
+					if (before_move != 3 || (maps.map[(enemy_cube.z - 180) / 180 + 5][enemy_cube.x / 180 + 5] == 1 &&
+						maps.map[(enemy_cube.z + 180) / 180 + 5][enemy_cube.x / 180 + 5] == 1 && maps.map[enemy_cube.z / 180 + 5][(enemy_cube.x + 180) / 180 + 5] == 1))
 					{
 						trues = 0;
 						enemy_cube.move_a = 1;
@@ -365,10 +351,10 @@ void Timer(int value)
 			}
 			else if (enemy_cube.next_move == 3)
 			{
-				if (map[enemy_cube.z / 180 + 5][(enemy_cube.x + 180) / 180 + 5] == 0)
+				if (maps.map[enemy_cube.z / 180 + 5][(enemy_cube.x + 180) / 180 + 5] == 0)
 				{
-					if (before_move != 2 || (map[(enemy_cube.z - 180) / 180 + 5][enemy_cube.x / 180 + 5] == 1 &&
-						map[(enemy_cube.z + 180) / 180 + 5][enemy_cube.x / 180 + 5] == 1 && map[enemy_cube.z / 180 + 5][(enemy_cube.x - 180) / 180 + 5] == 1))
+					if (before_move != 2 || (maps.map[(enemy_cube.z - 180) / 180 + 5][enemy_cube.x / 180 + 5] == 1 &&
+						maps.map[(enemy_cube.z + 180) / 180 + 5][enemy_cube.x / 180 + 5] == 1 && maps.map[enemy_cube.z / 180 + 5][(enemy_cube.x - 180) / 180 + 5] == 1))
 					{
 						trues = 0;
 						enemy_cube.move_d = 1;
@@ -675,43 +661,11 @@ void drawScene()
 				0.0, 1.0, 0.0); //UP
 		}
 
-
 		enemy_cube.light_draw();
-
-
-		glPushMatrix();//바닥 판
-		{
-			glColor3ub(150, 150, 150);
-			glBegin(GL_POLYGON);
-			glVertex3f(-1000, 0, -1000);
-			glVertex3f(-1000, 0, 1000);
-			glVertex3f(1000, 0, 1000);
-			glVertex3f(1000, 0, -1000);
-			glEnd();
-		}
-		glPopMatrix();
 
 		main_cube.draw();//메인큐브
 		enemy_cube.draw();//적큐브
-
-		for (int i = 0; i < 10; i++)
-		{
-			for (int j = 0; j < 10; j++)
-			{
-				if (map[i][j] == 1)
-				{
-					glPushMatrix();//지형
-					{
-						glTranslatef(-900 + (j * 180), 90, -900 + (i * 180));
-						glColor3ub(30, 30, 30);
-						glutSolidCube(180);
-						glColor3ub(0, 0, 0);
-						glutWireCube(180);
-					}
-					glPopMatrix();
-				}
-			}
-		}
+		maps.draw();
 	}
 	glPopMatrix();
 	glutSwapBuffers();

@@ -8,3 +8,5 @@
 #include <stdlib.h>
 #include <fstream>
 using namespace std;
+
+#define map_length 10

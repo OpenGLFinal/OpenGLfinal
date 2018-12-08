@@ -18,8 +18,14 @@ public:
 
 	int x_ro = 0;
 	int z_ro = 0;
-
+	
+	int cookie_num = 0; //몇번째 배열에 쿠키를 생성할지
+	int cookie_x[100];
+	int cookie_z[100];
+	int cookie_active[100];
+	int cookie_time[100]; //시간이 다되면 쿠키가 사라짐
 
 	//함수
 	void draw();
+	void cookie_draw();
 };

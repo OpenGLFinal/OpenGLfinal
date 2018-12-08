@@ -39,3 +39,7 @@ void Main_cube::draw()
 	}
 	glPopMatrix();
 }
+
+void Main_cube::cookie_draw()
+{
+}
