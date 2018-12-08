@@ -1,0 +1,24 @@
+﻿camera.obj : error LNK2005: "class CSound snd" (?snd@@3VCSound@@A)이(가) alpha_light.obj에 이미 정의되어 있습니다.
+enemy_cube.obj : error LNK2005: "class CSound snd" (?snd@@3VCSound@@A)이(가) alpha_light.obj에 이미 정의되어 있습니다.
+main.obj : error LNK2005: "class CSound snd" (?snd@@3VCSound@@A)이(가) alpha_light.obj에 이미 정의되어 있습니다.
+main_cube.obj : error LNK2005: "class CSound snd" (?snd@@3VCSound@@A)이(가) alpha_light.obj에 이미 정의되어 있습니다.
+maps.obj : error LNK2005: "class CSound snd" (?snd@@3VCSound@@A)이(가) alpha_light.obj에 이미 정의되어 있습니다.
+enemy_cube.obj : error LNK2019: __imp_glutWireCube 외부 기호(참조 위치: "public: void __cdecl Enemy_cube::draw(void)" (?draw@Enemy_cube@@QEAAXXZ) 함수)에서 확인하지 못했습니다.
+main_cube.obj : error LNK2001: __imp_glutWireCube 외부 기호를 확인할 수 없습니다.
+enemy_cube.obj : error LNK2019: __imp_glutSolidCube 외부 기호(참조 위치: "public: void __cdecl Enemy_cube::draw(void)" (?draw@Enemy_cube@@QEAAXXZ) 함수)에서 확인하지 못했습니다.
+main_cube.obj : error LNK2001: __imp_glutSolidCube 외부 기호를 확인할 수 없습니다.
+main.obj : error LNK2019: __imp_glutInitWindowSize 외부 기호(참조 위치: main 함수)에서 확인하지 못했습니다.
+main.obj : error LNK2019: __imp_glutInitDisplayMode 외부 기호(참조 위치: main 함수)에서 확인하지 못했습니다.
+main.obj : error LNK2019: __imp_glutMainLoop 외부 기호(참조 위치: main 함수)에서 확인하지 못했습니다.
+main.obj : error LNK2019: __imp_glutPostRedisplay 외부 기호(참조 위치: "void __cdecl Timer(int)" (?Timer@@YAXH@Z) 함수)에서 확인하지 못했습니다.
+main.obj : error LNK2019: __imp_glutSwapBuffers 외부 기호(참조 위치: "void __cdecl drawScene(void)" (?drawScene@@YAXXZ) 함수)에서 확인하지 못했습니다.
+main.obj : error LNK2019: __imp_glutTimerFunc 외부 기호(참조 위치: "void __cdecl Timer(int)" (?Timer@@YAXH@Z) 함수)에서 확인하지 못했습니다.
+main.obj : error LNK2019: __imp_glutKeyboardFunc 외부 기호(참조 위치: main 함수)에서 확인하지 못했습니다.
+main.obj : error LNK2019: __imp_glutReshapeFunc 외부 기호(참조 위치: main 함수)에서 확인하지 못했습니다.
+main.obj : error LNK2019: __imp_glutDisplayFunc 외부 기호(참조 위치: main 함수)에서 확인하지 못했습니다.
+main.obj : error LNK2019: __imp_glutMouseFunc 외부 기호(참조 위치: main 함수)에서 확인하지 못했습니다.
+main.obj : error LNK2019: __imp_glutMotionFunc 외부 기호(참조 위치: main 함수)에서 확인하지 못했습니다.
+main.obj : error LNK2019: __imp___glutInitWithExit 외부 기호(참조 위치: glutInit_ATEXIT_HACK 함수)에서 확인하지 못했습니다.
+main.obj : error LNK2019: __imp___glutCreateWindowWithExit 외부 기호(참조 위치: glutCreateWindow_ATEXIT_HACK 함수)에서 확인하지 못했습니다.
+C:\Program Files (x86)\Windows Kits\10\lib\10.0.17134.0\um\x64\freeglut.lib : warning LNK4272: 'x86' 라이브러리 컴퓨터 종류가 'x64' 대상 컴퓨터 종류와 충돌합니다.
+C:\Users\rnrjs\Desktop\개발\OpenGLfinal\Rolling_cube\x64\Debug\Rolling_cube.exe : fatal error LNK1120: 15개의 확인할 수 없는 외부 참조입니다.

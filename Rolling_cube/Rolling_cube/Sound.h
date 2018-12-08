@@ -3,7 +3,7 @@
 
 #define SOUND_NUM 10
 
-#pragma comment(lib, "FMOD/lib/fmod64_vc.lib")
+#pragma comment(lib, "FMOD/lib/fmod_vc.lib")
 
 using namespace FMOD;
 
