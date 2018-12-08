@@ -28,4 +28,5 @@ public:
 	//ÇÔ¼ö
 	void draw();
 	void cookie_draw();
+	void cookie_make();
 };

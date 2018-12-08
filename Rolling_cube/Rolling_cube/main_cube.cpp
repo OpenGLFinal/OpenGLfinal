@@ -42,4 +42,32 @@ void Main_cube::draw()
 
 void Main_cube::cookie_draw()
 {
+	for (int i = 0; i < 100; i++)
+	{
+		if (cookie_active[i] == 1)
+		{
+			glPushMatrix();
+			{
+				glTranslatef(cookie_x[i], 15, cookie_z[i]);
+				glColor3ub(232, 204, 255);
+				glutSolidCube(30);
+				glColor3ub(0, 0, 0);
+				glutWireCube(30);
+			}
+			glPopMatrix();
+		}
+	}
+}
+
+void Main_cube::cookie_make()
+{
+	cookie_active[cookie_num] = 1;
+	cookie_x[cookie_num] = x;
+	cookie_z[cookie_num] = z;
+	cookie_time[cookie_num] = 500;
+
+	if (cookie_num == 99)
+		cookie_num = 0;
+	else
+		cookie_num++;
 }

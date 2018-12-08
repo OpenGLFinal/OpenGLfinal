@@ -48,9 +48,21 @@ void SetupRC()
 
 void Timer(int value)
 {
+	for (int i = 0; i < 100; i++)
+	{
+		if (main_cube.cookie_active[i] == 1)
+		{
+			if (main_cube.cookie_time[i] >= 1)
+				main_cube.cookie_time[i]--;
+			else
+				main_cube.cookie_active[i] = 0;
+		}
+	}
+	
+
 	camera.timer();
 
-	//주인공 큐브 움직임
+	//주인공 큐브 움직임//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	if (main_cube.move_w == 1)
 	{
 		int crash = 0;
@@ -83,6 +95,7 @@ void Timer(int value)
 				main_cube.move_w = 0;
 				main_cube.z -= 90;
 				main_cube.x_ro = 0;
+				main_cube.cookie_make();
 			}
 		}
 		else if(crash == 1)
@@ -145,6 +158,7 @@ void Timer(int value)
 				main_cube.move_s = 0;
 				main_cube.z += 90;
 				main_cube.x_ro = 0;
+				main_cube.cookie_make();
 			}
 		}
 		else if (crash == 1)
@@ -207,6 +221,7 @@ void Timer(int value)
 				main_cube.move_a = 0;
 				main_cube.x -= 90;
 				main_cube.z_ro = 0;
+				main_cube.cookie_make();
 			}
 		}
 		else if (crash == 1)
@@ -269,6 +284,7 @@ void Timer(int value)
 				main_cube.move_d = 0;
 				main_cube.x += 90;
 				main_cube.z_ro = 0;
+				main_cube.cookie_make();
 			}
 		}
 		else if (crash == 1)
@@ -299,71 +315,122 @@ void Timer(int value)
 		}
 	}
 
+
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//적 큐브 어디로 갈까나
-	int trues = 1;
-	if (enemy_cube.move_time == 0 && enemy_cube.move_w == 0 && enemy_cube.move_s == 0 && enemy_cube.move_a == 0 && enemy_cube.move_d == 0)
+	int cookie_choose = 0;
+	int cookie_time = 0;
+	int cookie_x = 0;
+	int cookie_z = 0;
+
+	if (enemy_cube.move_time == 0 && enemy_cube.move_w == 0 && enemy_cube.move_s == 0 && enemy_cube.move_a == 0 && enemy_cube.move_d == 0)//다 움직였을때
 	{
-		do
+		for (int i = 0; i < 100; i++)//근처에 쿠키가 떨어져 있는지 확인
 		{
-			enemy_cube.next_move = rand() % 4;
-			if (enemy_cube.next_move == 0)
+			if ((enemy_cube.x == main_cube.cookie_x[i] && enemy_cube.z >= main_cube.cookie_z[i] - 180 && enemy_cube.z <= main_cube.cookie_z[i] + 180) || 
+				(enemy_cube.z == main_cube.cookie_z[i] && enemy_cube.x >= main_cube.cookie_x[i] - 180 && enemy_cube.x <= main_cube.cookie_x[i] + 180))
 			{
-				if (maps.map[(enemy_cube.z - 180) / 180 + 5][enemy_cube.x / 180 + 5] == 0)
+				cookie_choose = 1;
+				if (main_cube.cookie_time[i] > cookie_time)
 				{
-					if (before_move != 1 || (maps.map[(enemy_cube.z + 180) / 180 + 5][enemy_cube.x / 180 + 5] == 1 &&
-						maps.map[enemy_cube.z / 180 + 5][(enemy_cube.x - 180) / 180 + 5] == 1 && maps.map[enemy_cube.z / 180 + 5][(enemy_cube.x + 180) / 180 + 5] == 1))
-					{
-						trues = 0;
-						enemy_cube.move_w = 1;
-						enemy_cube.move_time = 90;
-						before_move = 0;
-					}
+					cookie_time = main_cube.cookie_time[i];
+					cookie_x = main_cube.cookie_x[i];
+					cookie_z = main_cube.cookie_z[i];
 				}
 			}
-			else if (enemy_cube.next_move == 1)
+		}
+
+		if (cookie_choose == 1)//근처에 쿠키가 있을(O)! 경우
+		{
+			if (enemy_cube.x == cookie_x && enemy_cube.z > cookie_z)
 			{
-				if (maps.map[(enemy_cube.z + 180) / 180 + 5][enemy_cube.x / 180 + 5] == 0)
+				enemy_cube.move_w = 1;
+				enemy_cube.move_time = 90;
+				before_move = 0;
+			}
+			else if(enemy_cube.x == cookie_x && enemy_cube.z < cookie_z)
+			{
+				enemy_cube.move_s = 1;
+				enemy_cube.move_time = 90;
+				before_move = 1;
+			}
+			else if (enemy_cube.z == cookie_z && enemy_cube.x > cookie_x)
+			{
+				enemy_cube.move_a = 1;
+				enemy_cube.move_time = 90;
+				before_move = 2;
+			}
+			else if (enemy_cube.z == cookie_z && enemy_cube.x < cookie_x)
+			{
+				enemy_cube.move_d = 1;
+				enemy_cube.move_time = 90;
+				before_move = 3;
+			}
+		}
+		else if (cookie_choose == 0)//근처에 쿠키가 없을(X)! 경우
+		{
+			int trues = 1;
+			do
+			{
+				enemy_cube.next_move = rand() % 4;
+				if (enemy_cube.next_move == 0)
 				{
-					if (before_move != 0 || (maps.map[(enemy_cube.z - 180) / 180 + 5][enemy_cube.x / 180 + 5] == 1 &&
-						maps.map[enemy_cube.z / 180 + 5][(enemy_cube.x - 180) / 180 + 5] == 1 && maps.map[enemy_cube.z / 180 + 5][(enemy_cube.x + 180) / 180 + 5] == 1))
+					if (maps.map[(enemy_cube.z - 180) / 180 + 5][enemy_cube.x / 180 + 5] == 0)
 					{
-						trues = 0;
-						enemy_cube.move_s = 1;
-						enemy_cube.move_time = 90;
-						before_move = 1;
+						if (before_move != 1 || (maps.map[(enemy_cube.z + 180) / 180 + 5][enemy_cube.x / 180 + 5] == 1 &&
+							maps.map[enemy_cube.z / 180 + 5][(enemy_cube.x - 180) / 180 + 5] == 1 && maps.map[enemy_cube.z / 180 + 5][(enemy_cube.x + 180) / 180 + 5] == 1))
+						{
+							trues = 0;
+							enemy_cube.move_w = 1;
+							enemy_cube.move_time = 90;
+							before_move = 0;
+						}
 					}
 				}
-			}
-			else if (enemy_cube.next_move == 2)
-			{
-				if (maps.map[enemy_cube.z / 180 + 5][(enemy_cube.x - 180) / 180 + 5] == 0)
+				else if (enemy_cube.next_move == 1)
 				{
-					if (before_move != 3 || (maps.map[(enemy_cube.z - 180) / 180 + 5][enemy_cube.x / 180 + 5] == 1 &&
-						maps.map[(enemy_cube.z + 180) / 180 + 5][enemy_cube.x / 180 + 5] == 1 && maps.map[enemy_cube.z / 180 + 5][(enemy_cube.x + 180) / 180 + 5] == 1))
+					if (maps.map[(enemy_cube.z + 180) / 180 + 5][enemy_cube.x / 180 + 5] == 0)
 					{
-						trues = 0;
-						enemy_cube.move_a = 1;
-						enemy_cube.move_time = 90;
-						before_move = 2;
+						if (before_move != 0 || (maps.map[(enemy_cube.z - 180) / 180 + 5][enemy_cube.x / 180 + 5] == 1 &&
+							maps.map[enemy_cube.z / 180 + 5][(enemy_cube.x - 180) / 180 + 5] == 1 && maps.map[enemy_cube.z / 180 + 5][(enemy_cube.x + 180) / 180 + 5] == 1))
+						{
+							trues = 0;
+							enemy_cube.move_s = 1;
+							enemy_cube.move_time = 90;
+							before_move = 1;
+						}
 					}
 				}
-			}
-			else if (enemy_cube.next_move == 3)
-			{
-				if (maps.map[enemy_cube.z / 180 + 5][(enemy_cube.x + 180) / 180 + 5] == 0)
+				else if (enemy_cube.next_move == 2)
 				{
-					if (before_move != 2 || (maps.map[(enemy_cube.z - 180) / 180 + 5][enemy_cube.x / 180 + 5] == 1 &&
-						maps.map[(enemy_cube.z + 180) / 180 + 5][enemy_cube.x / 180 + 5] == 1 && maps.map[enemy_cube.z / 180 + 5][(enemy_cube.x - 180) / 180 + 5] == 1))
+					if (maps.map[enemy_cube.z / 180 + 5][(enemy_cube.x - 180) / 180 + 5] == 0)
 					{
-						trues = 0;
-						enemy_cube.move_d = 1;
-						enemy_cube.move_time = 90;
-						before_move = 3;
+						if (before_move != 3 || (maps.map[(enemy_cube.z - 180) / 180 + 5][enemy_cube.x / 180 + 5] == 1 &&
+							maps.map[(enemy_cube.z + 180) / 180 + 5][enemy_cube.x / 180 + 5] == 1 && maps.map[enemy_cube.z / 180 + 5][(enemy_cube.x + 180) / 180 + 5] == 1))
+						{
+							trues = 0;
+							enemy_cube.move_a = 1;
+							enemy_cube.move_time = 90;
+							before_move = 2;
+						}
 					}
 				}
-			}
-		} while (trues);
+				else if (enemy_cube.next_move == 3)
+				{
+					if (maps.map[enemy_cube.z / 180 + 5][(enemy_cube.x + 180) / 180 + 5] == 0)
+					{
+						if (before_move != 2 || (maps.map[(enemy_cube.z - 180) / 180 + 5][enemy_cube.x / 180 + 5] == 1 &&
+							maps.map[(enemy_cube.z + 180) / 180 + 5][enemy_cube.x / 180 + 5] == 1 && maps.map[enemy_cube.z / 180 + 5][(enemy_cube.x - 180) / 180 + 5] == 1))
+						{
+							trues = 0;
+							enemy_cube.move_d = 1;
+							enemy_cube.move_time = 90;
+							before_move = 3;
+						}
+					}
+				}
+			} while (trues);
+		}
 	}
 
 	//적 큐브 움직임
@@ -664,6 +731,7 @@ void drawScene()
 		enemy_cube.light_draw();
 
 		main_cube.draw();//메인큐브
+		main_cube.cookie_draw();
 		enemy_cube.draw();//적큐브
 		maps.draw();
 	}
