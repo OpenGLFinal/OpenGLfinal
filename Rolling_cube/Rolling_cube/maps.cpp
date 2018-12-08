@@ -65,12 +65,29 @@ void Maps::draw()
 	{
 		glColor3ub(50, 50, 50);
 
-		glBegin(GL_QUADS);
-		glVertex3f(-1000, 1, -1000);
-		glVertex3f(-1000, 1, 1000);
-		glVertex3f(1000, 0, 1000);
-		glVertex3f(1000, 0, -1000);
-		glEnd();
+		for (int i = 0; i < 200; i++)
+		{
+			for (int j = 0; j < 200; j++)
+			{ 
+				glPushMatrix();
+				{
+					glTranslatef(i * 20 - 2000, 0, j * 20 - 2000);
+
+					glBegin(GL_QUADS);
+					glVertex3f(-10, 0, -10);
+					glVertex3f(-10, 0, 10);
+					glVertex3f(10, 0, 10);
+					glVertex3f(10, 0, -10);
+					glEnd();
+				}
+				glPopMatrix();
+			}
+		}
 	}
 	glPopMatrix();
+}
+
+void Maps::light_draw()
+{
+
 }

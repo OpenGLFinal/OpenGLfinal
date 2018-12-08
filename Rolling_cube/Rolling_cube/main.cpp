@@ -27,6 +27,13 @@ int a = 0;//임시로 테스트 카메라 시점전환////////////////
 
 void SetupRC()
 {
+	alpha_light.x[0] = 0;
+	alpha_light.z[0] = 0;
+	alpha_light.x[1] = 900;
+	alpha_light.z[1] = 900;
+	alpha_light.x[2] = -900;
+	alpha_light.z[2] = -900;
+
 	ifstream in("map.txt");
 
 	int i = 0;
@@ -331,8 +338,8 @@ void Timer(int value)
 	{
 		for (int i = 0; i < 100; i++)//근처에 쿠키가 떨어져 있는지 확인
 		{
-			if ((enemy_cube.x == main_cube.cookie_x[i] && enemy_cube.z >= main_cube.cookie_z[i] - 180 && enemy_cube.z <= main_cube.cookie_z[i] + 180) || 
-				(enemy_cube.z == main_cube.cookie_z[i] && enemy_cube.x >= main_cube.cookie_x[i] - 180 && enemy_cube.x <= main_cube.cookie_x[i] + 180))
+			if (main_cube.cookie_active[i] == 1 &&((enemy_cube.x == main_cube.cookie_x[i] && enemy_cube.z >= main_cube.cookie_z[i] - 180 && enemy_cube.z <= main_cube.cookie_z[i] + 180) || 
+				(enemy_cube.z == main_cube.cookie_z[i] && enemy_cube.x >= main_cube.cookie_x[i] - 180 && enemy_cube.x <= main_cube.cookie_x[i] + 180)))
 			{
 				cookie_choose = 1;
 				if (main_cube.cookie_time[i] > cookie_time)
@@ -703,6 +710,7 @@ void drawScene()
 	{
 		glEnable(GL_COLOR_MATERIAL);
 		glEnable(GL_LIGHTING);
+		glEnable(GL_BLEND);
 
 		glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
 

@@ -8,4 +8,5 @@ public:
 
 	//ÇÔ¼ö
 	void draw();
+	void light_draw();
 };
