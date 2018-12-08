@@ -1,3 +1,34 @@
-﻿  maps.cpp
-c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\maps.cpp(14): warning C4244: '인수': 'int'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  Rolling_cube.vcxproj -> C:\Users\rnrjs\Desktop\개발\OpenGLfinal\Rolling_cube\Debug\Rolling_cube.exe
+﻿  alpha_light.cpp
+c:\users\구건모\desktop\개발\openglfinal\rolling_cube\rolling_cube\alpha_light.cpp(9): warning C4838: 'int'에서 'GLfloat'(으)로의 변환에는 축소 변환이 필요합니다.
+c:\users\구건모\desktop\개발\openglfinal\rolling_cube\rolling_cube\alpha_light.cpp(9): warning C4244: '초기화 중': 'int'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\구건모\desktop\개발\openglfinal\rolling_cube\rolling_cube\alpha_light.cpp(10): warning C4838: 'int'에서 'GLfloat'(으)로의 변환에는 축소 변환이 필요합니다.
+c:\users\구건모\desktop\개발\openglfinal\rolling_cube\rolling_cube\alpha_light.cpp(10): warning C4244: '초기화 중': 'int'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\구건모\desktop\개발\openglfinal\rolling_cube\rolling_cube\alpha_light.cpp(11): warning C4838: 'int'에서 'GLfloat'(으)로의 변환에는 축소 변환이 필요합니다.
+c:\users\구건모\desktop\개발\openglfinal\rolling_cube\rolling_cube\alpha_light.cpp(11): warning C4244: '초기화 중': 'int'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  camera.cpp
+  enemy_cube.cpp
+c:\users\구건모\desktop\개발\openglfinal\rolling_cube\rolling_cube\enemy_cube.cpp(8): warning C4244: '인수': 'int'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\구건모\desktop\개발\openglfinal\rolling_cube\rolling_cube\enemy_cube.cpp(13): warning C4244: '인수': 'int'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\구건모\desktop\개발\openglfinal\rolling_cube\rolling_cube\enemy_cube.cpp(19): warning C4244: '인수': 'int'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\구건모\desktop\개발\openglfinal\rolling_cube\rolling_cube\enemy_cube.cpp(25): warning C4244: '인수': 'int'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\구건모\desktop\개발\openglfinal\rolling_cube\rolling_cube\enemy_cube.cpp(31): warning C4244: '인수': 'int'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\구건모\desktop\개발\openglfinal\rolling_cube\rolling_cube\enemy_cube.cpp(48): warning C4838: 'int'에서 'GLfloat'(으)로의 변환에는 축소 변환이 필요합니다.
+c:\users\구건모\desktop\개발\openglfinal\rolling_cube\rolling_cube\enemy_cube.cpp(48): warning C4244: '초기화 중': 'int'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  main.cpp
+c:\users\구건모\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(50): warning C4244: '인수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\구건모\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(665): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
+c:\users\구건모\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(716): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\구건모\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(717): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\구건모\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(801): warning C4244: '=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  main_cube.cpp
+c:\users\구건모\desktop\개발\openglfinal\rolling_cube\rolling_cube\main_cube.cpp(8): warning C4244: '인수': 'int'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\구건모\desktop\개발\openglfinal\rolling_cube\rolling_cube\main_cube.cpp(13): warning C4244: '인수': 'int'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\구건모\desktop\개발\openglfinal\rolling_cube\rolling_cube\main_cube.cpp(19): warning C4244: '인수': 'int'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\구건모\desktop\개발\openglfinal\rolling_cube\rolling_cube\main_cube.cpp(25): warning C4244: '인수': 'int'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\구건모\desktop\개발\openglfinal\rolling_cube\rolling_cube\main_cube.cpp(31): warning C4244: '인수': 'int'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\구건모\desktop\개발\openglfinal\rolling_cube\rolling_cube\main_cube.cpp(114): warning C4244: '인수': 'int'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  maps.cpp
+c:\users\구건모\desktop\개발\openglfinal\rolling_cube\rolling_cube\maps.cpp(14): warning C4244: '인수': 'int'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  코드를 생성하고 있습니다...
+  LINK : C:\Users\구건모\Desktop\개발\OpenGLfinal\Rolling_cube\Debug\Rolling_cube.exe을(를) 찾을 수 없거나 마지막 증분 링크에 의해 빌드되지 않았습니다. 전체 링크를 수행하고 있습니다.
+  Rolling_cube.vcxproj -> C:\Users\구건모\Desktop\개발\OpenGLfinal\Rolling_cube\Debug\Rolling_cube.exe
