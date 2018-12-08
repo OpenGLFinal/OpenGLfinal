@@ -5,6 +5,7 @@
 #include "enemy_cube.h"
 #include "camera.h"
 #include "maps.h"
+#include "alpha_light.h"
 
 GLvoid drawScene(GLvoid);
 GLvoid Reshape(int w, int h);
@@ -15,6 +16,7 @@ Main_cube main_cube;//주인공 큐브
 Enemy_cube enemy_cube;//적 큐브
 Camera camera;//카메라
 Maps maps;//맵
+Alpha_light alpha_light;//투명빛
 
 
 int bounce = 0;//팅기기 시작할때 0 돌아올때 1
@@ -731,6 +733,7 @@ void drawScene()
 		}
 
 		enemy_cube.light_draw();
+		alpha_light.light_draw();
 
 		main_cube.draw();//메인큐브
 		main_cube.cookie_draw();
@@ -815,5 +818,4 @@ GLubyte * LoadDIBitmap(const char *filename, BITMAPINFO **info)
 
 	fclose(fp);
 	return bits;
-
 }

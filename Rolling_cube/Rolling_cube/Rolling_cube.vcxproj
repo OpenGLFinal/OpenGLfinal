@@ -115,6 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="alpha_light.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="enemy_cube.cpp" />
     <ClCompile Include="main.cpp" />
@@ -122,6 +123,7 @@
     <ClCompile Include="maps.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="alpha_light.h" />
     <ClInclude Include="basic.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="enemy_cube.h" />

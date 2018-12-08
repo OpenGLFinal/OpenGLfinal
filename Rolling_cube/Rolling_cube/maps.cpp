@@ -15,69 +15,45 @@ void Maps::draw()
 					glColor3ub(30, 30, 30);
 
 					glBegin(GL_QUADS);
-					glTexCoord2d(0.0f, 1.0f);
-					glVertex3f(-90.0, 90.0, 90.0);
-					glTexCoord2d(0.0f, 0.0f);
-					glVertex3f(-90.0, -90.0, 90.0);
-					glTexCoord2d(1.0f, 0.0f);
-					glVertex3f(90.0, -90.0, 90.0);
-					glTexCoord2d(1.0f, 1.0f);
-					glVertex3f(90.0, 90.0, 90.0);
+					glVertex3f(-90, 90, -90);
+					glVertex3f(-90, 90, 90);
+					glVertex3f(90, 90, 90);
+					glVertex3f(90, 90, -90);
 					glEnd();
 
 					glBegin(GL_QUADS);
-					glTexCoord2d(0.0f, 1.0f);
-					glVertex3f(90.0, 90.0, 90.0);
-					glTexCoord2d(0.0f, 0.0f);
-					glVertex3f(90.0, -90.0, 90.0);
-					glTexCoord2d(1.0f, 0.0f);
-					glVertex3f(90.0, -90.0, -90.0);
-					glTexCoord2d(1.0f, 1.0f);
-					glVertex3f(90.0, 90.0, -90.0);
+					glVertex3f(90, -90, -90);
+					glVertex3f(90, -90, 90);
+					glVertex3f(-90, -90, 90);
+					glVertex3f(-90, -90, -90);
 					glEnd();
 
 					glBegin(GL_QUADS);
-					glTexCoord2d(0.0f, 1.0f);
-					glVertex3f(-90.0, 90.0, -90.0);
-					glTexCoord2d(0.0f, 0.0f);
-					glVertex3f(90.0, 90.0, -90.0);
-					glTexCoord2d(1.0f, 0.0f);
-					glVertex3f(90.0, -90.0, -90.0);
-					glTexCoord2d(1.0f, 1.0f);
-					glVertex3f(-90.0, -90.0, -90.0);
+					glVertex3f(-90, 90, -90);
+					glVertex3f(-90, -90, -90);
+					glVertex3f(-90, -90, 90);
+					glVertex3f(-90, 90, 90);
 					glEnd();
 
 					glBegin(GL_QUADS);
-					glTexCoord2d(0.0f, 1.0f);
-					glVertex3f(-90.0, 90.0, 90.0);
-					glTexCoord2d(0.0f, 0.0f);
-					glVertex3f(-90.0, 90.0, -90.0);
-					glTexCoord2d(1.0f, 0.0f);
-					glVertex3f(-90.0, -90.0, -90.0);
-					glTexCoord2d(1.0f, 1.0f);
-					glVertex3f(-90.0, -90.0, 90.0);
+					glVertex3f(90, 90, 90);
+					glVertex3f(90, -90, 90);
+					glVertex3f(90, -90, -90);
+					glVertex3f(90, 90, -90);
 					glEnd();
 
 					glBegin(GL_QUADS);
-					glTexCoord2d(0.0f, 1.0f);
-					glVertex3f(-90.0, -90.0, 90.0);
-					glTexCoord2d(0.0f, 0.0f);
-					glVertex3f(-90.0, -90.0, -90.0);
-					glTexCoord2d(1.0f, 0.0f);
-					glVertex3f(90.0, -90.0, -90.0);
-					glTexCoord2d(1.0f, 1.0f);
-					glVertex3f(90.0, -90.0, 90.0);
+					glVertex3f(-90, 90, 90);
+					glVertex3f(-90, -90, 90);
+					glVertex3f(90, -90, 90);
+					glVertex3f(90, 90, 90);
 					glEnd();
-
+					
 					glBegin(GL_QUADS);
-					glTexCoord2d(0.0f, 1.0f);
-					glVertex3f(-90.0, 90.0, 90.0);
-					glTexCoord2d(0.0f, 0.0f);
-					glVertex3f(90.0, 90.0, 90.0);
-					glTexCoord2d(1.0f, 0.0f);
-					glVertex3f(90.0, 90.0, -90.0);
-					glTexCoord2d(1.0f, 1.0f);
-					glVertex3f(-90.0, 90.0, -90.0);
+					glVertex3f(90, 90, -90);
+					glVertex3f(90, -90, -90);
+					glVertex3f(-90, -90, -90);
+					glVertex3f(-90, 90, -90);
 					glEnd();
 				}
 				glPopMatrix();
@@ -87,10 +63,11 @@ void Maps::draw()
 
 	glPushMatrix();//¹Ù´Ú ÆÇ
 	{
-		glColor3ub(150, 150, 150);
-		glBegin(GL_POLYGON);
-		glVertex3f(-1000, 0, -1000);
-		glVertex3f(-1000, 0, 1000);
+		glColor3ub(50, 50, 50);
+
+		glBegin(GL_QUADS);
+		glVertex3f(-1000, 1, -1000);
+		glVertex3f(-1000, 1, 1000);
 		glVertex3f(1000, 0, 1000);
 		glVertex3f(1000, 0, -1000);
 		glEnd();

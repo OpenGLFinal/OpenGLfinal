@@ -33,9 +33,72 @@ void Main_cube::draw()
 		}
 
 		glColor3ub(120, 55, 18);
-		glutSolidCube(90);
-		glColor3ub(0, 0, 0);
-		glutWireCube(90);
+
+		glBegin(GL_QUADS);
+		glTexCoord2d(0.0f, 1.0f);
+		glVertex3f(-45.0, 45.0, 45.0);
+		glTexCoord2d(0.0f, 0.0f);
+		glVertex3f(-45.0, -45.0, 45.0);
+		glTexCoord2d(1.0f, 0.0f);
+		glVertex3f(45.0, -45.0, 45.0);
+		glTexCoord2d(1.0f, 1.0f);
+		glVertex3f(45.0, 45.0, 45.0);
+		glEnd();
+
+		glBegin(GL_QUADS);
+		glTexCoord2d(0.0f, 1.0f);
+		glVertex3f(45.0, 45.0, 45.0);
+		glTexCoord2d(0.0f, 0.0f);
+		glVertex3f(45.0, -45.0, 45.0);
+		glTexCoord2d(1.0f, 0.0f);
+		glVertex3f(45.0, -45.0, -45.0);
+		glTexCoord2d(1.0f, 1.0f);
+		glVertex3f(45.0, 45.0, -45.0);
+		glEnd();
+
+		glBegin(GL_QUADS);
+		glTexCoord2d(0.0f, 1.0f);
+		glVertex3f(-45.0, 45.0, -45.0);
+		glTexCoord2d(0.0f, 0.0f);
+		glVertex3f(45.0, 45.0, -45.0);
+		glTexCoord2d(1.0f, 0.0f);
+		glVertex3f(45.0, -45.0, -45.0);
+		glTexCoord2d(1.0f, 1.0f);
+		glVertex3f(-45.0, -45.0, -45.0);
+		glEnd();
+
+		glBegin(GL_QUADS);
+		glTexCoord2d(0.0f, 1.0f);
+		glVertex3f(-45.0, 45.0, 45.0);
+		glTexCoord2d(0.0f, 0.0f);
+		glVertex3f(-45.0, 45.0, -45.0);
+		glTexCoord2d(1.0f, 0.0f);
+		glVertex3f(-45.0, -45.0, -45.0);
+		glTexCoord2d(1.0f, 1.0f);
+		glVertex3f(-45.0, -45.0, 45.0);
+		glEnd();
+
+		glBegin(GL_QUADS);
+		glTexCoord2d(0.0f, 1.0f);
+		glVertex3f(-45.0, -45.0, 45.0);
+		glTexCoord2d(0.0f, 0.0f);
+		glVertex3f(-45.0, -45.0, -45.0);
+		glTexCoord2d(1.0f, 0.0f);
+		glVertex3f(45.0, -45.0, -45.0);
+		glTexCoord2d(1.0f, 1.0f);
+		glVertex3f(45.0, -45.0, 45.0);
+		glEnd();
+
+		glBegin(GL_QUADS);
+		glTexCoord2d(0.0f, 1.0f);
+		glVertex3f(-45.0, 45.0, 45.0);
+		glTexCoord2d(0.0f, 0.0f);
+		glVertex3f(45.0, 45.0, 45.0);
+		glTexCoord2d(1.0f, 0.0f);
+		glVertex3f(45.0, 45.0, -45.0);
+		glTexCoord2d(1.0f, 1.0f);
+		glVertex3f(-45.0, 45.0, -45.0);
+		glEnd();
 	}
 	glPopMatrix();
 }
