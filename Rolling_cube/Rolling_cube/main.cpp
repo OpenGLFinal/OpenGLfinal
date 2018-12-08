@@ -11,9 +11,14 @@ GLUquadricObj *glu_line;
 Main_cube main_cube;//주인공 큐브
 Enemy_cube enemy_cube;//적 큐브
 Camera camera;//카메라
+
 int map[10][10];
 int poss = -900;
 int bounce = 0;//팅기기 시작할때 0 돌아올때 1
+int before_move = 9;//적 큐브가 전에 어딜 갔을려나?
+
+int a = 0;//임시로 테스트 카메라 시점전환////////////////
+
 
 void SetupRC()
 {
@@ -308,6 +313,7 @@ void Timer(int value)
 		}
 	}
 
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//적 큐브 어디로 갈까나
 	int trues = 1;
 	if (enemy_cube.move_time == 0 && enemy_cube.move_w == 0 && enemy_cube.move_s == 0 && enemy_cube.move_a == 0 && enemy_cube.move_d == 0)
@@ -319,48 +325,69 @@ void Timer(int value)
 			{
 				if (map[(enemy_cube.z - 180) / 180 + 5][enemy_cube.x / 180 + 5] == 0)
 				{
-					trues = 0;
-					enemy_cube.move_w = 1;
-					enemy_cube.move_time = 90;
+					if (before_move != 1 || (map[(enemy_cube.z + 180) / 180 + 5][enemy_cube.x / 180 + 5] == 1 &&
+						map[enemy_cube.z / 180 + 5][(enemy_cube.x - 180) / 180 + 5] == 1 && map[enemy_cube.z / 180 + 5][(enemy_cube.x + 180) / 180 + 5] == 1))
+					{
+						trues = 0;
+						enemy_cube.move_w = 1;
+						enemy_cube.move_time = 90;
+						before_move = 0;
+					}
 				}
 			}
 			else if (enemy_cube.next_move == 1)
 			{
 				if (map[(enemy_cube.z + 180) / 180 + 5][enemy_cube.x / 180 + 5] == 0)
 				{
-					trues = 0;
-					enemy_cube.move_s = 1;
-					enemy_cube.move_time = 90;
+					if (before_move != 0 || (map[(enemy_cube.z - 180) / 180 + 5][enemy_cube.x / 180 + 5] == 1 &&
+						map[enemy_cube.z / 180 + 5][(enemy_cube.x - 180) / 180 + 5] == 1 && map[enemy_cube.z / 180 + 5][(enemy_cube.x + 180) / 180 + 5] == 1))
+					{
+						trues = 0;
+						enemy_cube.move_s = 1;
+						enemy_cube.move_time = 90;
+						before_move = 1;
+					}
 				}
 			}
 			else if (enemy_cube.next_move == 2)
 			{
 				if (map[enemy_cube.z / 180 + 5][(enemy_cube.x - 180) / 180 + 5] == 0)
 				{
-					trues = 0;
-					enemy_cube.move_a = 1;
-					enemy_cube.move_time = 90;
+					if (before_move != 3 || (map[(enemy_cube.z - 180) / 180 + 5][enemy_cube.x / 180 + 5] == 1 &&
+						map[(enemy_cube.z + 180) / 180 + 5][enemy_cube.x / 180 + 5] == 1 && map[enemy_cube.z / 180 + 5][(enemy_cube.x + 180) / 180 + 5] == 1))
+					{
+						trues = 0;
+						enemy_cube.move_a = 1;
+						enemy_cube.move_time = 90;
+						before_move = 2;
+					}
 				}
 			}
 			else if (enemy_cube.next_move == 3)
 			{
 				if (map[enemy_cube.z / 180 + 5][(enemy_cube.x + 180) / 180 + 5] == 0)
 				{
-					trues = 0;
-					enemy_cube.move_d = 1;
-					enemy_cube.move_time = 90;
+					if (before_move != 2 || (map[(enemy_cube.z - 180) / 180 + 5][enemy_cube.x / 180 + 5] == 1 &&
+						map[(enemy_cube.z + 180) / 180 + 5][enemy_cube.x / 180 + 5] == 1 && map[enemy_cube.z / 180 + 5][(enemy_cube.x - 180) / 180 + 5] == 1))
+					{
+						trues = 0;
+						enemy_cube.move_d = 1;
+						enemy_cube.move_time = 90;
+						before_move = 3;
+					}
 				}
 			}
 		} while (trues);
 	}
 
-	//적 큐브
+	//적 큐브 움직임
 	if (enemy_cube.move_w == 1)
 	{
 		if (enemy_cube.move_time != 0)
 		{
 			enemy_cube.x_ro -= 3;
 			enemy_cube.move_time -= 3;
+			enemy_cube.light_z -= 6;
 		}
 		else
 		{
@@ -375,6 +402,7 @@ void Timer(int value)
 		{
 			enemy_cube.x_ro += 3;
 			enemy_cube.move_time -= 3;
+			enemy_cube.light_z += 6;
 		}
 		else
 		{
@@ -389,6 +417,7 @@ void Timer(int value)
 		{
 			enemy_cube.z_ro += 3;
 			enemy_cube.move_time -= 3;
+			enemy_cube.light_x -= 6;
 		}
 		else
 		{
@@ -403,6 +432,7 @@ void Timer(int value)
 		{
 			enemy_cube.z_ro -= 3;
 			enemy_cube.move_time -= 3;
+			enemy_cube.light_x += 6;
 		}
 		else
 		{
@@ -548,6 +578,15 @@ void Keyboard(unsigned char key, int x, int y)
 			camera.ro_big = 90;
 		}
 		break;
+
+
+	///////////////임시들//////////////
+	case '1':
+		if (a == 1)
+			a = 0;
+		else
+			a = 1;
+		break;
 	}
 }
 
@@ -608,14 +647,33 @@ void drawScene()
 		glEnable(GL_COLOR_MATERIAL);
 		glEnable(GL_LIGHTING);
 
+		glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
+
+		GLfloat gray[] = { 0.75f, 0.75f, 0.75f, 1.0f };
+		GLfloat specref[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+		glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, gray);
+		glMaterialfv(GL_FRONT, GL_SPECULAR, specref);
+		glMateriali(GL_FRONT, GL_SHININESS, 64);
+
+
 		float x_ro = cos(float(camera.ro) * 3.141592 / 180);
 		float z_ro = sin(float(camera.ro) * 3.141592 / 180);
 
 	
-		gluLookAt(
-			(300.0 * x_ro) + camera.x, 300.0, (300.0 * z_ro) + camera.z, //EYE
-			camera.x, 0.0, camera.z, //AT
-			0.0, 1.0, 0.0); //UP
+		if (a == 0)
+		{
+			gluLookAt(
+				(300.0 * x_ro) + camera.x, 300.0, (300.0 * z_ro) + camera.z, //EYE
+				camera.x, 0.0, camera.z, //AT
+				0.0, 1.0, 0.0); //UP
+		}
+		else
+		{
+			gluLookAt(
+				0, 2000, 0, //EYE
+				0, 0.0, -1, //AT
+				0.0, 1.0, 0.0); //UP
+		}
 
 
 		enemy_cube.light_draw();

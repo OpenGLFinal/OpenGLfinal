@@ -7,6 +7,9 @@ public:
 	int x = 0;
 	int z = 0;
 
+	int light_x = 0;
+	int light_z = 0;
+
 	int move_w = 0;
 	int move_s = 0;
 	int move_a = 0;
