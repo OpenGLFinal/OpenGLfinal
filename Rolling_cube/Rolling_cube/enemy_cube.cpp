@@ -45,7 +45,7 @@ void Enemy_cube::light_draw()
 	GLfloat AmbientLight[] = { 0, 0, 0, 0 };//주변 조명
 	GLfloat DiffuseLight[] = { 50.0f, 50.0f, 50.0f, 0.0f };//산란 반사 조명
 	GLfloat SpecularLight[] = { 1.0f, 1.0f, 1.0f, 0.0f };//거울반사 조명
-	GLfloat lightPos[] = {light_x - 90, 2000, light_z + 180, 1 };
+	GLfloat lightPos[] = {light_x, 2000, light_z + 360, 1 };
 	float spotlightDirection[] = { 0.0f, -1.0f, 0.0f };              // 스포트라이트 방향
 	glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, 90.0f);                  // 90도 원뿔
 	glLightf(GL_LIGHT0, GL_SPOT_EXPONENT, 50.0f);                 // 초점 설정

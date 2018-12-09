@@ -61,6 +61,13 @@ void CSound::Add_sound()
 		, nullptr
 		, &pSound[4]
 	);
+
+	pSystem->createStream(
+		"Sound\\bgm2.mp3"
+		, FMOD_2D | FMOD_LOOP_NORMAL
+		, nullptr
+		, &pSound[5]
+	);
 }
 
 void CSound::Play(int n)

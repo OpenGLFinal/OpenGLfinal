@@ -1,10 +1,10 @@
 ﻿  main.cpp
 c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(50): warning C4244: '=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(220): warning C4244: '인수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(229): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(998): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
-c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(1048): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(1049): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(1084): warning C4838: 'int'에서 'GLfloat'(으)로의 변환에는 축소 변환이 필요합니다.
-c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(1084): warning C4244: '초기화 중': 'int'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(278): warning C4244: '인수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(311): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(1183): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(1235): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(1236): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(1271): warning C4838: 'int'에서 'GLfloat'(으)로의 변환에는 축소 변환이 필요합니다.
+c:\users\rnrjs\desktop\개발\openglfinal\rolling_cube\rolling_cube\main.cpp(1271): warning C4244: '초기화 중': 'int'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   Rolling_cube.vcxproj -> C:\Users\rnrjs\Desktop\개발\OpenGLfinal\Rolling_cube\Debug\Rolling_cube.exe
