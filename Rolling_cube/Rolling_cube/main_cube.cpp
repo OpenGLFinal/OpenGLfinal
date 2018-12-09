@@ -115,11 +115,44 @@ void Main_cube::cookie_draw()
 		{
 			glPushMatrix();
 			{
-				glTranslatef(cookie_x[i], 15, cookie_z[i]);
-				glColor3ub(132, 104, 155);
-				glutSolidCube(30);
-				glColor3ub(0, 0, 0);
-				glutWireCube(30);
+				glTranslatef(cookie_x[i], 10, cookie_z[i]);
+
+
+				glRotatef(90, 1, 0, 0);
+
+				GLUquadricObj *qobj = gluNewQuadric();
+
+				glPushMatrix();
+				{
+					glColor3ub(214, 163, 112);
+					glTranslatef(0, 10, 0);
+					gluDisk(qobj, 0.0, 40, 20, 3);
+					
+				}
+				glPopMatrix();
+
+				glColor3ub(102, 51, 0);
+
+				glPushMatrix();
+				{
+					glTranslatef(-25.0, 5.0, -7.0);
+					glutSolidCube(13);
+
+					glPushMatrix();
+					{
+						glTranslatef(10.0, 8.0, 1.0);
+						glutSolidCube(13);
+
+						glPushMatrix();
+						{
+							glTranslatef(27.0, 5.0, 3.0);
+							glutSolidCube(13);
+						}
+						glPopMatrix();
+					}
+					glPopMatrix();
+				}
+				glPopMatrix();
 			}
 			glPopMatrix();
 		}

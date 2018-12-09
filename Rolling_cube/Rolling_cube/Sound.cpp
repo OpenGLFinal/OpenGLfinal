@@ -47,6 +47,20 @@ void CSound::Add_sound()
 		, nullptr
 		, &pSound[2]
 	);
+
+	pSystem->createStream(
+		"Sound\\door_sound.mp3"
+		, FMOD_2D | FMOD_LOOP_OFF
+		, nullptr
+		, &pSound[3]
+	);
+
+	pSystem->createStream(
+		"Sound\\fire_sound2.mp3"
+		, FMOD_2D | FMOD_LOOP_OFF
+		, nullptr
+		, &pSound[4]
+	);
 }
 
 void CSound::Play(int n)

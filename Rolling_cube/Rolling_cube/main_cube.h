@@ -7,8 +7,8 @@ public:
 	GLuint main_cube_sp[1];
 
 	//변수
-	int x = 0;
-	int z = 0;
+	int x = -9 * 180;
+	int z = 8 * 180;
 
 	int move_w = 0;
 	int move_w_time = 0;
@@ -29,6 +29,8 @@ public:
 	int cookie_time[100]; //시간이 다되면 쿠키가 사라짐
 
 	int invisibl = 0;//투명상태
+
+	int key = 0;
 
 	//함수
 	void draw();

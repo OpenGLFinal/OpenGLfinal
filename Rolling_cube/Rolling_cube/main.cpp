@@ -80,6 +80,9 @@ Alpha_light alpha_light;//투명빛
 int bounce = 0;//팅기기 시작할때 0 돌아올때 1
 int before_move = 9;//적 큐브가 전에 어딜 갔을려나?
 float enemy_sound = 1;
+int fire_time = 0;
+int fire_x = 0;
+int fire_z = 0;
 
 int a = 0;//임시로 테스트 카메라 시점전환////////////////
 
@@ -94,6 +97,12 @@ void SetupRC()
 	snd.Add_sound();
 	
 	snd.pSound[2]->release();
+	snd.Add_sound();
+
+	snd.pSound[3]->release();
+	snd.Add_sound();
+
+	snd.pSound[4]->release();
 	snd.Add_sound();
 
 
@@ -130,8 +139,6 @@ void SetupRC()
 
 	ifstream in("map.txt");
 
-	int i = 0;
-	int j = 0;
 	char c;
 
 	if (in.fail()) { cout << "파일을 여는 데 실패했습니다." << endl;}
@@ -148,11 +155,77 @@ void SetupRC()
 
 	in.close();
 
+
+	ifstream in2("map2.txt");//적 충돌용
+
+	if (in2.fail()) { cout << "파일을 여는 데 실패했습니다." << endl; }
+
+	for (int i = 0; i < map_length; i++)
+	{
+		for (int j = 0; j < map_length; j++)
+		{
+			in2.get(c);
+			maps.map2[i][j] = c - 48;
+		}
+		in2.get(c);
+	}
+
+	in2.close();
+
+
+	int num = 0;
+	for (int i = 0; i < map_length; i++)
+	{
+		for (int j = 0; j < map_length; j++)
+		{
+			if (maps.map[i][j] == 4)
+			{
+				alpha_light.x[num] = -90 * map_length + (j * 180);
+				alpha_light.z[num] = -90 * map_length + (i * 180);
+				num++;
+			}
+		}
+	}
+	
+	num = 0;
+	for (int i = 0; i < map_length; i++)
+	{
+		for (int j = 0; j < map_length; j++)
+		{
+			if (maps.map[i][j] == 5)
+			{
+				maps.tunnel_x[num] = -90 * map_length + (j * 180);
+				maps.tunnel_z[num] = -90 * map_length + (i * 180);
+				num++;
+				
+			}
+		}
+	}
+
+	num = 0;
+	for (int i = 0; i < map_length; i++)
+	{
+		for (int j = 0; j < map_length; j++)
+		{
+			if (maps.map[i][j] == 6)
+			{
+				maps.fire_x[num] = -90 * map_length + (j * 180);
+				maps.fire_z[num] = -90 * map_length + (i * 180);
+				maps.fire_active[num] = 1;
+				num++;
+			}
+		}
+	}
+
 	srand(time(NULL));
 }
 
 void Timer(int value)
 {
+	if (main_cube.key == 1)
+		maps.map[0][18] = 0;
+
+
 	enemy_sound = 1.5 - sqrt((main_cube.x - enemy_cube.x) * (main_cube.x - enemy_cube.x) + (main_cube.z - enemy_cube.z) * (main_cube.z - enemy_cube.z)) / 1500.0f;
 	if(enemy_sound > 0)
 		snd.pChannel[2]->setVolume(enemy_sound);
@@ -170,6 +243,9 @@ void Timer(int value)
 				main_cube.cookie_active[i] = 0;
 		}
 	}
+
+	if (fire_time != 0)
+		fire_time--;
 	
 
 	camera.timer();
@@ -437,7 +513,7 @@ void Timer(int value)
 
 	//주인공 큐브 은신
 	int on = 0;
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 5; i++)
 	{
 		if (main_cube.x == alpha_light.x[i] && main_cube.z == alpha_light.z[i])
 			on = 1;
@@ -447,7 +523,48 @@ void Timer(int value)
 	else
 		main_cube.invisibl = 0;
 
+	//빛에서 삭제
+	for (int j = 0; j < 5; j++)
+	{
+		for (int i = 0; i < 100; i++)
+		{
+			if (main_cube.cookie_x[i] > alpha_light.x[j] - 90 && main_cube.cookie_x[i] < alpha_light.x[j] + 90 &&
+				main_cube.cookie_z[i] > alpha_light.z[j] - 90 && main_cube.cookie_z[i] < alpha_light.z[j] + 90 && main_cube.cookie_active[i] == 1)
+				main_cube.cookie_active[i] = 0;
+		}
+	}
 
+	//터널에서 삭제
+	for (int j = 0; j < 3; j++)
+	{
+		for (int i = 0; i < 100; i++)
+		{
+			if (main_cube.cookie_x[i] >= maps.tunnel_x[j] - 90 && main_cube.cookie_x[i] <= maps.tunnel_x[j] + 90 &&
+				main_cube.cookie_z[i] >= maps.tunnel_z[j] - 90 && main_cube.cookie_z[i] <= maps.tunnel_z[j] + 90 && main_cube.cookie_active[i] == 1)
+				main_cube.cookie_active[i] = 0;
+		}
+	}
+
+	//키 충돌
+	if (main_cube.x == 0 && main_cube.z == 0)
+	{
+		main_cube.key = 1;
+		maps.key = 0;
+		snd.Play(3);
+	}
+
+	//경보 충돌
+	for (int i = 0; i < 4; i++)
+	{
+		if (main_cube.x == maps.fire_x[i] && main_cube.z == maps.fire_z[i] && maps.fire_active[i] == 1)
+		{
+			maps.fire_active[i] = 0;
+			fire_time = 500;
+			snd.Play(4);
+			fire_x = main_cube.x;
+			fire_z = main_cube.z;
+		}
+	}
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//적 큐브 어디로 갈까나
 	int cookie_choose = 0;
@@ -474,6 +591,7 @@ void Timer(int value)
 
 		if (cookie_choose == 1)//근처에 쿠키가 있을(O)! 경우
 		{
+			cout << "쿠키추격" << endl;
 			if (enemy_cube.x == cookie_x && enemy_cube.z > cookie_z)
 			{
 				enemy_cube.move_w = 1;
@@ -492,7 +610,7 @@ void Timer(int value)
 				enemy_cube.move_time = 90;
 				before_move = 2;
 			}
-			else if (enemy_cube.z == cookie_z && enemy_cube.x < cookie_x)
+			else if (enemy_cube.z == cookie_z && enemy_cube.x < cookie_x && maps.map2[enemy_cube.z / 180 + 10][(enemy_cube.x + 180) / 180 + 10] != 1)
 			{
 				enemy_cube.move_d = 1;
 				enemy_cube.move_time = 90;
@@ -507,10 +625,10 @@ void Timer(int value)
 				enemy_cube.next_move = rand() % 4;
 				if (enemy_cube.next_move == 0)
 				{
-					if (maps.map[(enemy_cube.z - 180) / 180 + 10][enemy_cube.x / 180 + 10] == 0)
+					if (maps.map2[(enemy_cube.z - 180) / 180 + 10][enemy_cube.x / 180 + 10] != 1)
 					{
-						if (before_move != 1 || (maps.map[(enemy_cube.z + 180) / 180 + 10][enemy_cube.x / 180 + 10] >= 1 &&
-							maps.map[enemy_cube.z / 180 + 10][(enemy_cube.x - 180) / 180 + 10] >= 1 && maps.map[enemy_cube.z / 180 + 10][(enemy_cube.x + 180) / 180 + 10] >= 1))
+						if (before_move != 1 || (maps.map2[(enemy_cube.z + 180) / 180 + 10][enemy_cube.x / 180 + 10] == 1 &&
+							maps.map2[enemy_cube.z / 180 + 10][(enemy_cube.x - 180) / 180 + 10] == 1 && maps.map2[enemy_cube.z / 180 + 10][(enemy_cube.x + 180) / 180 + 10] == 1))
 						{
 							trues = 0;
 							enemy_cube.move_w = 1;
@@ -519,12 +637,12 @@ void Timer(int value)
 						}
 					}
 				}
-				else if (enemy_cube.next_move >= 1)
+				else if (enemy_cube.next_move == 1)
 				{
-					if (maps.map[(enemy_cube.z + 180) / 180 + 10][enemy_cube.x / 180 + 10] == 0)
+					if (maps.map2[(enemy_cube.z + 180) / 180 + 10][enemy_cube.x / 180 + 10] != 1)
 					{
-						if (before_move != 0 || (maps.map[(enemy_cube.z - 180) / 180 + 10][enemy_cube.x / 180 + 10] >= 1 &&
-							maps.map[enemy_cube.z / 180 + 10][(enemy_cube.x - 180) / 180 + 10] >= 1 && maps.map[enemy_cube.z / 180 + 10][(enemy_cube.x + 180) / 180 + 10] >= 1))
+						if (before_move != 0 || (maps.map2[(enemy_cube.z - 180) / 180 + 10][enemy_cube.x / 180 + 10] == 1 &&
+							maps.map2[enemy_cube.z / 180 + 10][(enemy_cube.x - 180) / 180 + 10] == 1 && maps.map2[enemy_cube.z / 180 + 10][(enemy_cube.x + 180) / 180 + 10] == 1))
 						{
 							trues = 0;
 							enemy_cube.move_s = 1;
@@ -535,10 +653,10 @@ void Timer(int value)
 				}
 				else if (enemy_cube.next_move == 2)
 				{
-					if (maps.map[enemy_cube.z / 180 + 10][(enemy_cube.x - 180) / 180 + 10] == 0)
+					if (maps.map2[enemy_cube.z / 180 + 10][(enemy_cube.x - 180) / 180 + 10] != 1)
 					{
-						if (before_move != 3 || (maps.map[(enemy_cube.z - 180) / 180 + 10][enemy_cube.x / 180 + 10] >= 1 &&
-							maps.map[(enemy_cube.z + 180) / 180 + 10][enemy_cube.x / 180 + 10] >= 1 && maps.map[enemy_cube.z / 180 + 10][(enemy_cube.x + 180) / 180 + 10] >= 1))
+						if (before_move != 3 || (maps.map2[(enemy_cube.z - 180) / 180 + 10][enemy_cube.x / 180 + 10] == 1 &&
+							maps.map2[(enemy_cube.z + 180) / 180 + 10][enemy_cube.x / 180 + 10] == 1 && maps.map2[enemy_cube.z / 180 + 10][(enemy_cube.x + 180) / 180 + 10] == 1))
 						{
 							trues = 0;
 							enemy_cube.move_a = 1;
@@ -549,10 +667,10 @@ void Timer(int value)
 				}
 				else if (enemy_cube.next_move == 3)
 				{
-					if (maps.map[enemy_cube.z / 180 + 10][(enemy_cube.x + 180) / 180 + 10] == 0)
+					if (maps.map2[enemy_cube.z / 180 + 10][(enemy_cube.x + 180) / 180 + 10] != 1)
 					{
-						if (before_move != 2 || (maps.map[(enemy_cube.z - 180) / 180 + 10][enemy_cube.x / 180 + 10] >= 1 &&
-							maps.map[(enemy_cube.z + 180) / 180 + 10][enemy_cube.x / 180 + 10] >= 1 && maps.map[enemy_cube.z / 180 + 10][(enemy_cube.x - 180) / 180 + 10] >= 1))
+						if (before_move != 2 || (maps.map2[(enemy_cube.z - 180) / 180 + 10][enemy_cube.x / 180 + 10] == 1 &&
+							maps.map2[(enemy_cube.z + 180) / 180 + 10][enemy_cube.x / 180 + 10] == 1 && maps.map2[enemy_cube.z / 180 + 10][(enemy_cube.x - 180) / 180 + 10] == 1))
 						{
 							trues = 0;
 							enemy_cube.move_d = 1;
@@ -568,14 +686,24 @@ void Timer(int value)
 	//적 큐브 움직임
 	if (enemy_cube.move_w == 1)
 	{
-		if (enemy_cube.move_time != 0)
+		if (enemy_cube.move_time > 0)
 		{
-			enemy_cube.x_ro -= 3;
-			enemy_cube.move_time -= 3;
-			enemy_cube.light_z -= 6;
+			if (fire_time == 0)
+			{
+				enemy_cube.x_ro -= 3;
+				enemy_cube.move_time -= 3;
+				enemy_cube.light_z -= 6;
+			}
+			else
+			{
+				enemy_cube.x_ro -= 6;
+				enemy_cube.move_time -= 6;
+				enemy_cube.light_z -= 12;
+			}
 		}
 		else
 		{
+			enemy_cube.move_time = 0;
 			enemy_cube.move_w = 0;
 			enemy_cube.z -= 180;
 			enemy_cube.x_ro = 0;
@@ -584,14 +712,24 @@ void Timer(int value)
 	}
 	else if (enemy_cube.move_s == 1)
 	{
-		if (enemy_cube.move_time != 0)
+		if (enemy_cube.move_time > 0)
 		{
-			enemy_cube.x_ro += 3;
-			enemy_cube.move_time -= 3;
-			enemy_cube.light_z += 6;
+			if (fire_time == 0)
+			{
+				enemy_cube.x_ro += 3;
+				enemy_cube.move_time -= 3;
+				enemy_cube.light_z += 6;
+			}
+			else
+			{
+				enemy_cube.x_ro += 6;
+				enemy_cube.move_time -= 6;
+				enemy_cube.light_z += 12;
+			}
 		}
 		else
 		{
+			enemy_cube.move_time = 0;
 			enemy_cube.move_s = 0;
 			enemy_cube.z += 180;
 			enemy_cube.x_ro = 0;
@@ -600,14 +738,24 @@ void Timer(int value)
 	}
 	else if (enemy_cube.move_a == 1)
 	{
-		if (enemy_cube.move_time != 0)
+		if (enemy_cube.move_time > 0)
 		{
-			enemy_cube.z_ro += 3;
-			enemy_cube.move_time -= 3;
-			enemy_cube.light_x -= 6;
+			if (fire_time == 0)
+			{
+				enemy_cube.z_ro += 3;
+				enemy_cube.move_time -= 3;
+				enemy_cube.light_x -= 6;
+			}
+			else
+			{
+				enemy_cube.z_ro += 6;
+				enemy_cube.move_time -= 6;
+				enemy_cube.light_x -= 12;
+			}
 		}
 		else
 		{
+			enemy_cube.move_time = 0;
 			enemy_cube.move_a = 0;
 			enemy_cube.x -= 180;
 			enemy_cube.z_ro = 0;
@@ -616,14 +764,24 @@ void Timer(int value)
 	}
 	else if (enemy_cube.move_d == 1)
 	{
-		if (enemy_cube.move_time != 0)
+		if (enemy_cube.move_time > 0)
 		{
-			enemy_cube.z_ro -= 3;
-			enemy_cube.move_time -= 3;
-			enemy_cube.light_x += 6;
+			if (fire_time == 0)
+			{
+				enemy_cube.z_ro -= 3;
+				enemy_cube.move_time -= 3;
+				enemy_cube.light_x += 6;
+			}
+			else
+			{
+				enemy_cube.z_ro -= 6;
+				enemy_cube.move_time -= 6;
+				enemy_cube.light_x += 12;
+			}
 		}
 		else
 		{
+			enemy_cube.move_time = 0;
 			enemy_cube.move_d = 0;
 			enemy_cube.x += 180;
 			enemy_cube.z_ro = 0;
@@ -776,6 +934,49 @@ void Keyboard(unsigned char key, int x, int y)
 		else
 			a = 1;
 		break;
+
+	case 'r':
+		enemy_cube.x = 180 * 8;
+		enemy_cube.z = 180 * -9;
+
+		enemy_cube.light_x = 180 * 8 + 90;
+		enemy_cube.light_z = 180 * -8;
+
+		enemy_cube.move_w = 0;
+		enemy_cube.move_s = 0;
+		enemy_cube.move_a = 0;
+		enemy_cube.move_d = 0;
+		enemy_cube.move_time = 0;
+
+		enemy_cube.next_move = 0;
+
+		enemy_cube.x_ro = 0;
+		enemy_cube.z_ro = 0;
+
+
+		main_cube.x = 0;
+		main_cube.z = 0;
+
+		main_cube.move_w = 0;
+		main_cube.move_w_time = 0;
+		main_cube.move_s = 0;
+		main_cube.move_s_time = 0;
+		main_cube.move_a = 0;
+		main_cube.move_a_time = 0;
+		main_cube.move_d = 0;
+		main_cube.move_d_time = 0;
+
+		main_cube.x_ro = 0;
+		main_cube.z_ro = 0;
+
+		main_cube.cookie_num = 0; //몇번째 배열에 쿠키를 생성할지
+		main_cube.cookie_x[100];
+		main_cube.cookie_z[100];
+		main_cube.cookie_active[100];
+		main_cube.cookie_time[100]; //시간이 다되면 쿠키가 사라짐
+
+		main_cube.invisibl = 0;
+		break;
 	}
 }
 
@@ -864,7 +1065,37 @@ void drawScene()
 		}
 
 		enemy_cube.light_draw();
-		alpha_light.light_draw();
+		int crash1 = 0, crash2 = 0, crash3 = 0, crash4 = 0, crash5 = 0;
+		if (main_cube.x == alpha_light.x[0] && main_cube.z == alpha_light.z[0])
+			crash1 = 1;
+		if (main_cube.x == alpha_light.x[1] && main_cube.z == alpha_light.z[1])
+			crash2 = 1;
+		if (main_cube.x == alpha_light.x[2] && main_cube.z == alpha_light.z[2])
+			crash3 = 1;
+		if (main_cube.x == alpha_light.x[3] && main_cube.z == alpha_light.z[3])
+			crash4 = 1;
+		if (main_cube.x == alpha_light.x[4] && main_cube.z == alpha_light.z[4])
+			crash5 = 1;
+		alpha_light.light_draw(crash1, crash2, crash3, crash4, crash5);
+
+		GLfloat AmbientLight[] = { 0, 0, 0, 0 };//주변 조명
+		GLfloat DiffuseLight[] = { 100.0f, 0.0f, 0.0f, 0.0f };//산란 반사 조명
+		GLfloat SpecularLight[] = { 1.0f, 1.0f, 1.0f, 0.0f };//거울반사 조명
+		GLfloat lightPos[] = { fire_x - 90, 2000, fire_z + 180, 1 };
+		float spotlightDirection[] = { 0.0f, -1.0f, 0.0f };              // 스포트라이트 방향
+		glLightf(GL_LIGHT6, GL_SPOT_CUTOFF, 90.0f);                  // 90도 원뿔
+		glLightf(GL_LIGHT6, GL_SPOT_EXPONENT, 50.0f);                 // 초점 설정
+		glLightfv(GL_LIGHT6, GL_SPOT_DIRECTION, spotlightDirection);   // 방향 설정
+
+		glLightfv(GL_LIGHT6, GL_AMBIENT, AmbientLight);
+		glLightfv(GL_LIGHT6, GL_DIFFUSE, DiffuseLight);
+		glLightfv(GL_LIGHT6, GL_SPECULAR, SpecularLight);
+		glLightfv(GL_LIGHT6, GL_POSITION, lightPos);
+
+		if(fire_time > 0)
+			glEnable(GL_LIGHT6);
+		else
+			glDisable(GL_LIGHT6);
 
 		main_cube.draw();//메인큐브
 		main_cube.cookie_draw();
