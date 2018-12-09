@@ -1097,6 +1097,7 @@ void Keyboard(unsigned char key, int x, int y)
 
 			snd.pChannel[0]->stop();
 			snd.Play(5);
+			snd.pChannel[5]->setVolume(5);
 
 			Reshape(1920, 1080);
 			glutReshapeFunc(Reshape);
